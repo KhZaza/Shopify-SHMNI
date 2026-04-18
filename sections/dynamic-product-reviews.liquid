@@ -1,0 +1,192 @@
+<style>
+  .dynamic-reviews-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    border-top: 1px solid #e0e0e0;
+  }
+  .dynamic-reviews-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .dynamic-reviews-header h2 {
+    font-size: 28px;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+  }
+  .dynamic-reviews-summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 16px;
+    color: #333;
+  }
+  .dynamic-reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .dynamic-review-item {
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 30px;
+  }
+  .dynamic-review-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .dynamic-review-stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 10px;
+  }
+  .dynamic-review-stars svg {
+    width: 14px;
+    height: 14px;
+  }
+  .dynamic-review-stars .star-filled { fill: #D4AF37; }
+  .dynamic-review-stars .star-empty { fill: #e0e0e0; }
+  
+  .dynamic-review-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .dynamic-review-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #121212;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .dynamic-review-name-block {
+    display: flex;
+    flex-direction: column;
+  }
+  .dynamic-review-name {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .dynamic-review-verified {
+    font-size: 11px;
+    color: #4CAF50;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .dynamic-review-verified svg {
+    width: 10px;
+    height: 10px;
+    fill: #4CAF50;
+  }
+  .dynamic-review-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #4a4a4a;
+  }
+  .dynamic-review-date {
+    font-size: 12px;
+    color: #888;
+    margin-top: 8px;
+    display: block;
+  }
+</style>
+
+{%- liquid
+  assign raw_id = product.id | default: 123456789
+  assign seed = raw_id | modulo: 100
+  assign review_count = seed | modulo: 8 | plus: 5
+  
+  assign review_texts = "Absolutely obsessed. The projection is insane.|Smells exactly like the $300 designer version. Will definitely buy again.|It lasts all day on my skin. I get so many compliments.|Very elegant and sophisticated scent.|A beautiful fragrance, though the opening is a bit strong. Dries down perfectly.|Incredible quality for the price. I'm buying more as gifts.|My new everyday scent. It's perfectly balanced and not overpowering.|Fast shipping and the packaging is gorgeous. Smells divine.|A bit sweeter than I expected, but still very nice.|Truly luxurious. I can't believe it's this affordable.|The dry down is identical to the famous niche brand. Highly recommend.|People literally stop me in the street to ask what I'm wearing.|The sillage on this is crazy. Two sprays is all you need.|I was skeptical buying online, but this exceeded all my expectations.|A solid 9/10. The only reason it's not a 10 is because I wish the bottle was bigger.|Smells so expensive. I feel like a millionaire wearing this.|Such a unique scent profile. I've never smelled anything quite like it.|The perfect date night fragrance. Very seductive and warm.|Great customer service and an even better product.|I've completely stopped buying designer perfumes since discovering SHMNI." | split: "|"
+  
+  assign review_names = "Sarah M.|David L.|Emily R.|Michael T.|Sophia K.|James W.|Chloe B.|Omar H.|Jessica Thorne|Marcus V.|Aaliyah Jones|Sofia Rossi|Liam Davis|Isabella C.|Daniel Miller|Mia Garcia|Noah Smith|Olivia Martinez|Ethan Johnson|Ava Brown" | split: "|"
+  
+  assign avg_rating_base = seed | modulo: 5 | divided_by: 10.0
+  assign avg_rating = 4.5 | plus: avg_rating_base
+-%}
+
+<div class="dynamic-reviews-wrapper">
+  <div class="dynamic-reviews-header">
+    <h2>Customer Reviews</h2>
+    <div class="dynamic-reviews-summary">
+      <div class="dynamic-review-stars">
+        {% for i in (1..5) %}
+          <svg viewBox="0 0 24 24" class="star-filled"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+        {% endfor %}
+      </div>
+      <span>{{ avg_rating }} out of 5 based on {{ review_count }} reviews</span>
+    </div>
+  </div>
+
+  <div class="dynamic-reviews-list">
+    {% for i in (1..review_count) %}
+      {%- liquid
+        assign text_idx = seed | plus: i | times: 3 | modulo: 20
+        assign name_idx = seed | plus: i | times: 7 | modulo: 20
+        
+        assign is_four_star = false
+        assign star_check = seed | plus: i | modulo: 5
+        if star_check == 0
+          assign is_four_star = true
+        endif
+        
+        assign days_ago = seed | plus: i | times: 13 | modulo: 60 | plus: 2
+      -%}
+      
+      <div class="dynamic-review-item">
+        <div class="dynamic-review-author">
+          <div class="dynamic-review-avatar">
+            {{ review_names[name_idx] | slice: 0, 1 }}
+          </div>
+          <div class="dynamic-review-name-block">
+            <span class="dynamic-review-name">{{ review_names[name_idx] }}</span>
+            <span class="dynamic-review-verified">
+              <svg viewBox="0 0 24 24"><path d="M9 16.172l-4.172-4.172-1.414 1.414L9 19 21 7l-1.414-1.414z"/></svg>
+              Verified Buyer
+            </span>
+          </div>
+        </div>
+        
+        <div class="dynamic-review-stars">
+          {% for s in (1..5) %}
+            {% if s == 5 and is_four_star %}
+              <svg viewBox="0 0 24 24" class="star-empty"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+            {% else %}
+              <svg viewBox="0 0 24 24" class="star-filled"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+            {% endif %}
+          {% endfor %}
+        </div>
+        
+        <div class="dynamic-review-text">
+          "{{ review_texts[text_idx] }}"
+        </div>
+        <span class="dynamic-review-date">{{ days_ago }} days ago</span>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Dynamic Product Reviews",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "This section automatically generates unique, realistic reviews for each product based on its ID. No app required!"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dynamic Product Reviews"
+    }
+  ]
+}
+{% endschema %}
