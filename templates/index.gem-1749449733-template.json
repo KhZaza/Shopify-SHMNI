@@ -1,0 +1,250 @@
+{
+  "sections": {
+    "background_video_HHrHei": {
+      "type": "background-video",
+      "blocks": {
+        "video_qzPHYi": {
+          "type": "video",
+          "settings": {
+            "video_link": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/07a07bfd00644b8384e776d113d18456.mp4",
+            "video_image": "shopify:\/\/shop_images\/SHMNI_logo_black.png",
+            "title": "",
+            "text": "<p><strong>                Inspired by luxury, perfected for you.<\/strong><strong>{{ shop.brand.slogan }}<\/strong><\/p>",
+            "color_text": "#ffffff",
+            "button_label": "",
+            "button_link": "",
+            "color_btn_bg": "#ffffff",
+            "color_btn_text": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "video_qzPHYi"
+      ],
+      "settings": {}
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Fragrances",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "fragrances",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 44,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_wq9EfU": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Car Freshener",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "car-freshener",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_HRx9Qe": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_YBP9pm": {
+          "type": "heading",
+          "settings": {
+            "heading": "Why SHMNI?",
+            "heading_size": "h1"
+          }
+        },
+        "text_MqQjp6": {
+          "type": "text",
+          "settings": {
+            "text": "<p>SHMNI allows you to enjoy your favorite fragrances without the hefty price tag, providing a similar, if not better, experience through the use of top-of-the-line ingredients.<\/p>"
+          }
+        },
+        "button_TC9UV3": {
+          "type": "button",
+          "settings": {
+            "button_label": "Products",
+            "button_link": "shopify:\/\/collections\/all",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_YBP9pm",
+        "text_MqQjp6",
+        "button_TC9UV3"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-2",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "collection_list_MiJ9Am": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_3xMeck": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "men"
+          }
+        },
+        "featured_collection_eQRhTW": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "unisex"
+          }
+        },
+        "featured_collection_anVddi": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "women"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_3xMeck",
+        "featured_collection_eQRhTW",
+        "featured_collection_anVddi"
+      ],
+      "settings": {
+        "title": "Collections",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "scheme-1",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "ss_back_to_top_button_pKpi8j": {
+      "type": "ss-back-to-top-button",
+      "settings": {
+        "hide_on_mobile": false,
+        "show_when_precent_of_page": 30,
+        "pos": "right",
+        "bg_color": "#f4f2f2",
+        "border_color": "#cec5c5",
+        "arrow_color": "#333333",
+        "button_size": 54,
+        "arrow_size": 30,
+        "horizontal_dst_to_edge": 20,
+        "vertical_dst_to_edge": 20
+      }
+    },
+    "collapsible_content_39KBaG": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_bxye8z": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What is SHMNI?",
+            "icon": "bottle",
+            "row_content": "<p>SHMNI is a fragrance brand offering high-quality perfumes at lower prices. We specialize in crafting scents inspired by well-known brands, allowing you to enjoy the same delightful aromas without paying for the brand name. Why pay a premium for the label when you can get the essence of your favorite cologne at a fraction of the cost?<\/p><p>At SHMNI, we believe that everyone deserves to indulge in luxurious scents. Our fragrances are meticulously crafted to mirror the essence of high-end brands, ensuring you get the best of both worlds: exceptional quality and affordability. Embrace the luxury of premium fragrances with SHMNI, and discover your new signature scent today.<\/p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_nmzRa4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Where is SHMNI made?",
+            "icon": "bottle",
+            "row_content": "<p>SHMNI is made in the USA, with our headquarters located in California. Our fragrance oils are sourced from top-quality ingredients in Switzerland, France, and other parts of Europe.<\/p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_ehNj7U": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Will I receive any gifts?",
+            "icon": "bottle",
+            "row_content": "<p>Maybe 😉<\/p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_RD7eKd": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Return Policy",
+            "icon": "return",
+            "row_content": "<p>If the product is damage, or not what you expected please contact us!<\/p><p>We will try our best to help <\/p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_bxye8z",
+        "collapsible_row_nmzRa4",
+        "collapsible_row_ehNj7U",
+        "collapsible_row_RD7eKd"
+      ],
+      "settings": {
+        "caption": "",
+        "heading": "FAQ",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "color_scheme": "",
+        "container_color_scheme": "",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "background_video_HHrHei",
+    "featured_collection",
+    "featured_collection_wq9EfU",
+    "rich_text_HRx9Qe",
+    "collection_list_MiJ9Am",
+    "ss_back_to_top_button_pKpi8j",
+    "collapsible_content_39KBaG"
+  ]
+}
