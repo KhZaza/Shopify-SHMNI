@@ -98,6 +98,28 @@
     margin-top: 8px;
     display: block;
   }
+  .dynamic-reviews-load-more {
+    display: block;
+    margin: 30px auto 0;
+    padding: 12px 30px;
+    background-color: transparent;
+    border: 1px solid #121212;
+    color: #121212;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+  }
+  .dynamic-reviews-load-more:hover {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  .hidden-review {
+    display: none;
+  }
 </style>
 
 {%- liquid
@@ -113,7 +135,7 @@
   assign avg_rating = 4.5 | plus: avg_rating_base
 -%}
 
-<div class="dynamic-reviews-wrapper">
+<div class="dynamic-reviews-wrapper" id="dynamic-reviews-section-{{ section.id }}">
   <div class="dynamic-reviews-header">
     <h2>Customer Reviews</h2>
     <div class="dynamic-reviews-summary">
@@ -139,9 +161,14 @@
         endif
         
         assign days_ago = seed | plus: i | times: 13 | modulo: 60 | plus: 2
+        
+        assign hidden_class = ""
+        if i > 2
+          assign hidden_class = "hidden-review"
+        endif
       -%}
       
-      <div class="dynamic-review-item">
+      <div class="dynamic-review-item {{ hidden_class }}">
         <div class="dynamic-review-author">
           <div class="dynamic-review-avatar">
             {{ review_names[name_idx] | slice: 0, 1 }}
@@ -172,7 +199,39 @@
       </div>
     {% endfor %}
   </div>
+  
+  {% if review_count > 2 %}
+    <button class="dynamic-reviews-load-more" id="dynamic-reviews-btn-{{ section.id }}">View More</button>
+  {% endif %}
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var wrapper = document.getElementById('dynamic-reviews-section-{{ section.id }}');
+    if (!wrapper) return;
+    
+    var btn = document.getElementById('dynamic-reviews-btn-{{ section.id }}');
+    if (!btn) return;
+    
+    btn.addEventListener('click', function() {
+      var hiddenReviews = wrapper.querySelectorAll('.hidden-review');
+      var revealCount = 0;
+      
+      for (var i = 0; i < hiddenReviews.length; i++) {
+        if (revealCount < 2) {
+          hiddenReviews[i].classList.remove('hidden-review');
+          revealCount++;
+        }
+      }
+      
+      // If no more hidden reviews, hide the button
+      var remainingHidden = wrapper.querySelectorAll('.hidden-review');
+      if (remainingHidden.length === 0) {
+        btn.style.display = 'none';
+      }
+    });
+  });
+</script>
 
 {% schema %}
 {
