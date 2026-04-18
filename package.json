@@ -1,0 +1,8 @@
+{
+  "name": "shopify-shmni",
+  "version": "1.0.0",
+  "description": "Shopify theme for SHMNI",
+  "scripts": {
+    "dev": "npx @shopify/cli@latest theme dev --store 40776c-02.myshopify.com"
+  }
+}
