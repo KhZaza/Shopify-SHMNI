@@ -1,0 +1,206 @@
+<style>
+  .custom-testimonials-wrapper {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 0;
+    background-color: {{ section.settings.bg_color }};
+    overflow: hidden;
+  }
+  .custom-testimonials-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 0 20px;
+  }
+  .custom-testimonials-header h2 {
+    font-size: 32px;
+    margin: 0;
+    color: {{ section.settings.text_color }};
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .custom-testimonials-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 24px;
+    padding: 20px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .custom-testimonials-slider::-webkit-scrollbar {
+    display: none;
+  }
+  .custom-testimonial-card {
+    flex: 0 0 300px;
+    scroll-snap-align: center;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  @media (min-width: 768px) {
+    .custom-testimonial-card {
+      flex: 0 0 360px;
+    }
+    .custom-testimonials-slider {
+      padding: 20px 10vw 40px 10vw;
+    }
+  }
+  .custom-testimonial-stars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 15px;
+  }
+  .custom-testimonial-stars svg {
+    width: 14px;
+    height: 14px;
+    fill: #D4AF37;
+  }
+  .custom-testimonial-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #4a4a4a;
+    margin-bottom: 24px;
+    font-style: normal;
+  }
+  .custom-testimonial-author {
+    display: flex;
+    flex-direction: column;
+  }
+  .custom-testimonial-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #121212;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .custom-testimonial-verified {
+    font-size: 11px;
+    color: #888888;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .custom-testimonial-verified svg {
+    width: 12px;
+    height: 12px;
+    fill: #4CAF50;
+  }
+</style>
+
+<div class="custom-testimonials-wrapper">
+  {% if section.settings.title != blank %}
+    <div class="custom-testimonials-header">
+      <h2>{{ section.settings.title }}</h2>
+    </div>
+  {% endif %}
+  <div class="custom-testimonials-slider">
+    {% for block in section.blocks %}
+      <div class="custom-testimonial-card" {{ block.shopify_attributes }}>
+        <div class="custom-testimonial-stars">
+          {% for i in (1..5) %}
+            <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+          {% endfor %}
+        </div>
+        <div class="custom-testimonial-text">
+          "{{ block.settings.review_text }}"
+        </div>
+        <div class="custom-testimonial-author">
+          <span class="custom-testimonial-name">{{ block.settings.author_name }}</span>
+          {% if block.settings.show_verified %}
+            <span class="custom-testimonial-verified">
+              <svg viewBox="0 0 24 24"><path d="M9 16.172l-4.172-4.172-1.414 1.414L9 19 21 7l-1.414-1.414z"/></svg>
+              Verified Customer
+            </span>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Testimonial Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Real Reviews"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#F5F5DC"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "This fragrance is absolutely stunning. I get compliments everywhere I go."
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name",
+          "default": "Jane Doe"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_verified",
+          "label": "Show Verified Tag",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial Slider",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}
