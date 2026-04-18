@@ -66,6 +66,18 @@
   }
   .custom-testimonial-author {
     display: flex;
+    align-items: center;
+  }
+  .custom-testimonial-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+    background-color: #f0f0f0;
+  }
+  .custom-testimonial-author-info {
+    display: flex;
     flex-direction: column;
   }
   .custom-testimonial-name {
@@ -110,13 +122,20 @@
           "{{ block.settings.review_text }}"
         </div>
         <div class="custom-testimonial-author">
-          <span class="custom-testimonial-name">{{ block.settings.author_name }}</span>
-          {% if block.settings.show_verified %}
-            <span class="custom-testimonial-verified">
-              <svg viewBox="0 0 24 24"><path d="M9 16.172l-4.172-4.172-1.414 1.414L9 19 21 7l-1.414-1.414z"/></svg>
-              Verified Customer
-            </span>
+          {% if block.settings.author_image != blank %}
+            <img src="{{ block.settings.author_image | image_url: width: 88 }}" width="44" height="44" class="custom-testimonial-avatar" alt="{{ block.settings.author_name }}">
+          {% else %}
+            <div class="custom-testimonial-avatar" style="display:flex;align-items:center;justify-content:center;font-size:16px;color:#888;font-weight:bold;">{{ block.settings.author_name | slice: 0, 1 }}</div>
           {% endif %}
+          <div class="custom-testimonial-author-info">
+            <span class="custom-testimonial-name">{{ block.settings.author_name }}</span>
+            {% if block.settings.show_verified %}
+              <span class="custom-testimonial-verified">
+                <svg viewBox="0 0 24 24"><path d="M9 16.172l-4.172-4.172-1.414 1.414L9 19 21 7l-1.414-1.414z"/></svg>
+                Verified Customer
+              </span>
+            {% endif %}
+          </div>
         </div>
       </div>
     {% endfor %}
@@ -183,6 +202,11 @@
           "label": "Author Name",
           "default": "Jane Doe"
         },
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Author Photo"
+        },,
         {
           "type": "checkbox",
           "id": "show_verified",
