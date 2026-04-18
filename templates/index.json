@@ -212,7 +212,8 @@
           "type": "review",
           "settings": {
             "review_text": "The best dupe I've ever purchased. The packaging is minimal and gorgeous, looks perfect on my vanity.",
-            "author_name": "Aaliyah Jones",
+            "author_name": "Sam",
+            "author_image": "shopify://shop_images/IMG_4138.jpg",
             "show_verified": true
           }
         },
