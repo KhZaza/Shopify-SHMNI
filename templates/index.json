@@ -290,6 +290,44 @@
         "padding_bottom": 36
       }
     },
+    "image_with_text_ncHqWb": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_7PLYMq": {
+          "type": "heading",
+          "settings": {
+            "heading": "Crafted for the Connoisseur",
+            "heading_size": "h2"
+          }
+        },
+        "text_MFNpct": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We source the finest fragrance oils from around the world to deliver a premium scent experience without the markup. Discover your signature scent.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_7PLYMq",
+        "text_MFNpct"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/793562137.png",
+        "height": "medium",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "section_color_scheme": "",
+        "color_scheme": "scheme-2",
+        "image_behavior": "none",
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "final_cta": {
       "type": "rich-text",
       "blocks": {
@@ -348,6 +386,7 @@
     "signature_collections",
     "custom_testimonials",
     "lifestyle",
+    "image_with_text_ncHqWb",
     "final_cta",
     "ss_back_to_top_button_pKpi8j"
   ]
