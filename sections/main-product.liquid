@@ -201,45 +201,62 @@
                   
                   <style>
                     .scent-pyramid-container {
-                      margin: 0 0 30px;
-                      background: transparent;
-                      padding: 10px 0;
+                      max-width: 400px;
+                      margin: 40px auto;
+                      position: relative;
+                      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.1));
                     }
-                    .scent-tier {
-                      margin-bottom: 25px;
-                      text-align: left;
+                    .scent-pyramid-master {
+                      width: 100%;
+                      padding-top: 86.6%; /* Equilateral Triangle Ratio */
+                      position: relative;
+                      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+                      background: #121212;
                     }
-                    .scent-tier:last-child {
-                      margin-bottom: 0;
+                    .scent-pyramid-inner {
+                      position: absolute;
+                      top: 0; left: 0; right: 0; bottom: 0;
+                      display: flex;
+                      flex-direction: column;
                     }
-                    .scent-tier-title {
-                      font-size: 11px;
+                    .pyramid-section {
+                      flex: 1;
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      justify-content: flex-end; /* Push text to the widest part of the section */
+                      padding-bottom: 15px;
+                      border-bottom: 1px solid rgba(255,255,255,0.15);
+                      transition: background 0.3s ease;
+                    }
+                    .pyramid-section:hover {
+                      background: rgba(255,255,255,0.05);
+                    }
+                    .pyramid-section:last-child {
+                      border-bottom: none;
+                      padding-bottom: 20px;
+                    }
+                    .pyramid-title {
+                      color: rgba(255,255,255,0.5);
+                      font-size: 10px;
                       text-transform: uppercase;
-                      letter-spacing: 0.15em;
-                      color: #666;
-                      margin-bottom: 12px;
+                      letter-spacing: 0.25em;
+                      margin-bottom: 6px;
                       font-weight: 600;
                     }
-                    .scent-notes {
-                      display: flex;
-                      flex-wrap: wrap;
-                      gap: 10px;
-                    }
-                    .scent-note-pill {
-                      background: transparent;
-                      border: 1px solid #121212;
-                      color: #121212;
-                      padding: 8px 18px;
-                      border-radius: 40px;
-                      font-size: 13px;
-                      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-                      cursor: default;
-                    }
-                    .scent-note-pill:hover {
-                      background: #121212;
+                    .pyramid-notes {
                       color: #fff;
-                      transform: translateY(-3px);
-                      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+                      font-size: 13px;
+                      font-weight: 400;
+                      text-align: center;
+                      line-height: 1.4;
+                      padding: 0 15px;
+                      max-width: 90%;
+                    }
+                    @media (max-width: 768px) {
+                      .scent-pyramid-container { max-width: 320px; }
+                      .pyramid-notes { font-size: 11px; }
+                      .pyramid-title { font-size: 9px; }
                     }
                   </style>
 
@@ -253,9 +270,9 @@
                       const pyramidContainer = document.getElementById('ScentPyramid-{{ section.id }}');
                       if (!descContainer || !pyramidContainer) return;
 
-                      let topNotes = [];
-                      let middleNotes = [];
-                      let baseNotes = [];
+                      let topNotes = '';
+                      let middleNotes = '';
+                      let baseNotes = '';
 
                       const paragraphs = descContainer.querySelectorAll('p, div');
                       paragraphs.forEach(p => {
@@ -265,13 +282,13 @@
                         
                         if (text.includes('TOP NOTES:')) {
                            let parts = p.innerText.split(/:/);
-                           if(parts.length > 1) { raw = parts.slice(1).join(':'); topNotes = parseNotes(raw); found = true; }
+                           if(parts.length > 1) { topNotes = parts.slice(1).join(':').trim().replace(/\.$/, ''); found = true; }
                         } else if (text.includes('MIDDLE NOTES:') || text.includes('HEART NOTES:')) {
                            let parts = p.innerText.split(/:/);
-                           if(parts.length > 1) { raw = parts.slice(1).join(':'); middleNotes = parseNotes(raw); found = true; }
+                           if(parts.length > 1) { middleNotes = parts.slice(1).join(':').trim().replace(/\.$/, ''); found = true; }
                         } else if (text.includes('BASE NOTES:')) {
                            let parts = p.innerText.split(/:/);
-                           if(parts.length > 1) { raw = parts.slice(1).join(':'); baseNotes = parseNotes(raw); found = true; }
+                           if(parts.length > 1) { baseNotes = parts.slice(1).join(':').trim().replace(/\.$/, ''); found = true; }
                         }
                         
                         if(found) {
@@ -279,28 +296,33 @@
                         }
                       });
                       
-                      function parseNotes(rawStr) {
-                        return rawStr.split(',').map(n => n.trim().replace(/\.$/, '')).filter(n => n.length > 0);
-                      }
-
-                      if (topNotes.length || middleNotes.length || baseNotes.length) {
-                        let html = '';
+                      if (topNotes || middleNotes || baseNotes) {
+                        let html = `
+                          <div class="scent-pyramid-master">
+                            <div class="scent-pyramid-inner">
+                        `;
                         
-                        if (topNotes.length) {
-                          html += '<div class="scent-tier"><div class="scent-tier-title">Top Notes (The First Impression)</div><div class="scent-notes">';
-                          topNotes.forEach(note => html += `<div class="scent-note-pill">${note}</div>`);
-                          html += '</div></div>';
-                        }
-                        if (middleNotes.length) {
-                          html += '<div class="scent-tier"><div class="scent-tier-title">Heart Notes (The Core)</div><div class="scent-notes">';
-                          middleNotes.forEach(note => html += `<div class="scent-note-pill">${note}</div>`);
-                          html += '</div></div>';
-                        }
-                        if (baseNotes.length) {
-                          html += '<div class="scent-tier"><div class="scent-tier-title">Base Notes (The Lasting Trail)</div><div class="scent-notes">';
-                          baseNotes.forEach(note => html += `<div class="scent-note-pill">${note}</div>`);
-                          html += '</div></div>';
-                        }
+                        // We always render 3 sections to keep the triangle proportions perfect,
+                        // even if a note is missing, we just leave it blank or put a dash.
+                        html += `
+                          <div class="pyramid-section">
+                            <div class="pyramid-title">Top Notes</div>
+                            <div class="pyramid-notes">${topNotes || '-'}</div>
+                          </div>
+                          <div class="pyramid-section">
+                            <div class="pyramid-title">Heart Notes</div>
+                            <div class="pyramid-notes">${middleNotes || '-'}</div>
+                          </div>
+                          <div class="pyramid-section">
+                            <div class="pyramid-title">Base Notes</div>
+                            <div class="pyramid-notes">${baseNotes || '-'}</div>
+                          </div>
+                        `;
+                        
+                        html += `
+                            </div>
+                          </div>
+                        `;
                         
                         pyramidContainer.innerHTML = html;
                         pyramidContainer.style.display = 'block';
