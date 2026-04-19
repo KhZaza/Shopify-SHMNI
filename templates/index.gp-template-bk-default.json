@@ -17,13 +17,13 @@
           "settings": {
             "video_link": "https://cdn.shopify.com/videos/c/o/v/07a07bfd00644b8384e776d113d18456.mp4",
             "video_image": "shopify://shop_images/SHMNI_logo_black.png",
-            "title": "",
-            "text": "<p><strong>                Inspired by luxury, perfected for you.</strong><strong>{{ shop.brand.slogan }}</strong></p>",
+            "title": "Luxury Scents Without the Luxury Price",
+            "text": "<p>Crafted with premium ingredients. Designed to last.</p>",
             "color_text": "#ffffff",
-            "button_label": "",
-            "button_link": "",
+            "button_label": "Shop Best Sellers",
+            "button_link": "shopify://collections/best-sellers",
             "color_btn_bg": "#ffffff",
-            "color_btn_text": "#ffffff"
+            "color_btn_text": "#000000"
           }
         }
       },
@@ -32,16 +32,16 @@
       ],
       "settings": {}
     },
-    "featured_collection": {
+    "best_sellers": {
       "type": "featured-collection",
       "settings": {
-        "title": "Fragrances",
+        "title": "Most Loved",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "fragrances",
-        "products_to_show": 8,
+        "collection": "best-sellers",
+        "products_to_show": 4,
         "columns_desktop": 4,
         "full_width": false,
         "show_view_all": true,
@@ -52,34 +52,377 @@
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
+        "show_rating": true,
+        "quick_add": "standard",
         "columns_mobile": "2",
-        "swipe_on_mobile": false,
+        "swipe_on_mobile": true,
         "padding_top": 44,
         "padding_bottom": 36
       }
     },
-    "rich_text_HRx9Qe": {
-      "type": "rich-text",
+    "why_shmni": {
+      "type": "multicolumn",
       "blocks": {
-        "heading_YBP9pm": {
+        "col1": {
+          "type": "column",
+          "settings": {
+            "title": "Long-Lasting",
+            "text": "<p>Engineered for all-day performance.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "col2": {
+          "type": "column",
+          "settings": {
+            "title": "Premium Oils",
+            "text": "<p>Sourced from the finest ingredients globally.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "col3": {
+          "type": "column",
+          "settings": {
+            "title": "Affordable Luxury",
+            "text": "<p>High-end scents without the markup.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "col4": {
+          "type": "column",
+          "settings": {
+            "title": "Everyday Wear",
+            "text": "<p>Perfectly balanced for any occasion.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "col1",
+        "col2",
+        "col3",
+        "col4"
+      ],
+      "settings": {
+        "title": "Why SHMNI ?",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "columns_desktop": 4,
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "Shop Now",
+        "button_link": "shopify://collections/fragrances",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "signature_collections": {
+      "type": "collection-list",
+      "blocks": {
+        "c1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "men"
+          }
+        },
+        "c3": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "unisex"
+          }
+        },
+        "c2": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "women"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c3",
+        "c2"
+      ],
+      "settings": {
+        "title": "Signature Collections",
+        "heading_size": "h2",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "scheme-1",
+        "show_view_all": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_testimonials": {
+      "type": "custom-testimonials",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "review_text": "Incredible! Smells exactly like the $300 version but lasts even longer on my skin.",
+            "author_name": "Jessica Thorne",
+            "author_image": "shopify://shop_images/proud-canadian-woman.jpg",
+            "show_verified": true
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "review_text": "I get compliments every single time I wear OUD. Truly luxurious and the projection is insane.",
+            "author_name": "Malik",
+            "author_image": "shopify://shop_images/IMG_4136.jpg",
+            "show_verified": true
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "review_text": "The best dupe I've ever purchased. The packaging is minimal and gorgeous, looks perfect on my vanity.",
+            "author_name": "Sam",
+            "author_image": "shopify://shop_images/IMG_4138.jpg",
+            "show_verified": true
+          }
+        },
+        "r4": {
+          "type": "review",
+          "settings": {
+            "review_text": "I wasn't sure about buying fragrance online, but 540 blew me away. It is my new signature scent.",
+            "author_name": "Michael Torres",
+            "show_verified": true
+          }
+        },
+        "review_8g749Q": {
+          "type": "review",
+          "settings": {
+            "review_text": "This fragrance is absolutely stunning. I get compliments everywhere I go.",
+            "author_name": "Jane Doe",
+            "show_verified": true
+          }
+        },
+        "r5": {
+          "type": "review",
+          "settings": {
+            "review_text": "As someone who collects high-end niche perfumes, I am genuinely shocked at the quality of these oils.",
+            "author_name": "Sofia Rossi",
+            "show_verified": true
+          }
+        },
+        "r6": {
+          "type": "review",
+          "settings": {
+            "review_text": "Lasts 12+ hours easily. People stop me in the street to ask what I'm wearing. 10/10.",
+            "author_name": "James Weaver",
+            "show_verified": true
+          }
+        },
+        "r7": {
+          "type": "review",
+          "settings": {
+            "review_text": "Affordable luxury at its finest. The dry down is identical to the designer brand.",
+            "author_name": "Chloe B.",
+            "show_verified": true
+          }
+        },
+        "review_jgiaEk": {
+          "type": "review",
+          "settings": {
+            "review_text": "This fragrance is absolutely stunning. I get compliments everywhere I go.",
+            "author_name": "Jane Doe",
+            "show_verified": true
+          }
+        },
+        "r8": {
+          "type": "review",
+          "settings": {
+            "review_text": "I bought 3 bottles after trying the first one. You cannot beat this price for such a premium experience.",
+            "author_name": "Omar Hassan",
+            "show_verified": true
+          }
+        },
+        "885666d9-2026-447a-ade2-01febca80922": {
+          "type": "review",
+          "settings": {
+            "review_text": "Rich, complex, and incredibly addictive. It balances perfectly between being bold and sophisticated. My new signature scent.",
+            "author_name": "Julian H.",
+            "show_verified": true
+          }
+        },
+        "fa3194af-c89a-478b-9042-6bc9126dfd70": {
+          "type": "review",
+          "settings": {
+            "review_text": "I was hesitant to buy fragrance online without smelling it first, but the Scent Quiz was remarkably accurate. I am obsessed.",
+            "author_name": "Claire M.",
+            "show_verified": true
+          }
+        },
+        "d10114c9-1a79-4449-91bf-6f55619fe77f": {
+          "type": "review",
+          "settings": {
+            "review_text": "Exudes pure confidence. One spray lasts over 12 hours. The dry down into the warm vanilla and amber is incredible.",
+            "author_name": "David L.",
+            "show_verified": true
+          }
+        },
+        "9ae57000-dc7e-4c4a-b264-db8598778494": {
+          "type": "review",
+          "settings": {
+            "review_text": "Finally, a luxury perfume that doesn't smell like a department store. Unique, artistic, and deeply personal.",
+            "author_name": "Isabella K.",
+            "show_verified": true
+          }
+        },
+        "76b528a9-6869-4c91-b3a4-9437f33c0779": {
+          "type": "review",
+          "settings": {
+            "review_text": "I bought this for my wife based on the heart notes listed. She absolutely loves it. Fast shipping and gorgeous packaging.",
+            "author_name": "Michael B.",
+            "show_verified": true
+          }
+        },
+        "7559f525-d479-45cf-a02f-5b5413bfdea9": {
+          "type": "review",
+          "settings": {
+            "review_text": "The complimentary 2ml sample was such a thoughtful touch! I knew instantly I was going to keep the full bottle.",
+            "author_name": "Elena P.",
+            "show_verified": true
+          }
+        },
+        "c08188e7-421b-4cea-882e-8c08d1c83e6e": {
+          "type": "review",
+          "settings": {
+            "review_text": "Intoxicating from the first spritz. I've completely abandoned my old designer colognes for this. 10/10.",
+            "author_name": "Nathan W.",
+            "show_verified": true
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "review_8g749Q",
+        "r5",
+        "r6",
+        "r7",
+        "review_jgiaEk",
+        "r8",
+        "885666d9-2026-447a-ade2-01febca80922",
+        "fa3194af-c89a-478b-9042-6bc9126dfd70",
+        "d10114c9-1a79-4449-91bf-6f55619fe77f",
+        "9ae57000-dc7e-4c4a-b264-db8598778494",
+        "76b528a9-6869-4c91-b3a4-9437f33c0779",
+        "7559f525-d479-45cf-a02f-5b5413bfdea9",
+        "c08188e7-421b-4cea-882e-8c08d1c83e6e"
+      ],
+      "settings": {
+        "title": "Testimonials",
+        "bg_color": "#dfe7e8",
+        "text_color": "#121212",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "lifestyle": {
+      "type": "image-with-text",
+      "blocks": {
+        "h": {
           "type": "heading",
           "settings": {
-            "heading": "Why SHMNI?",
+            "heading": "Crafted for the Connoisseur",
+            "heading_size": "h2"
+          }
+        },
+        "t": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We source the finest fragrance oils from around the world to deliver a premium scent experience without the markup. Discover your signature scent.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "h",
+        "t"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/2025-12-14T05_50_55.000000Z.png",
+        "height": "medium",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "section_color_scheme": "",
+        "color_scheme": "scheme-2",
+        "image_behavior": "none",
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_ncHqWb": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_7PLYMq": {
+          "type": "heading",
+          "settings": {
+            "heading": "Engineered to Last",
+            "heading_size": "h2"
+          }
+        },
+        "text_MFNpct": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our fragrances are crafted with high oil concentrations for long-lasting performance. A few sprays go further, delivering depth, projection, and all-day wear.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_7PLYMq",
+        "text_MFNpct"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/793562137.png",
+        "height": "medium",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "section_color_scheme": "",
+        "color_scheme": "scheme-2",
+        "image_behavior": "none",
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "final_cta": {
+      "type": "rich-text",
+      "blocks": {
+        "h": {
+          "type": "heading",
+          "settings": {
+            "heading": "Find Your Signature Scent",
             "heading_size": "h1"
           }
         },
-        "text_MqQjp6": {
-          "type": "text",
-          "settings": {
-            "text": "<p>SHMNI allows you to enjoy your favorite fragrances without the hefty price tag, providing a similar, if not better, experience through the use of top-of-the-line ingredients.</p>"
-          }
-        },
-        "button_TC9UV3": {
+        "b": {
           "type": "button",
           "settings": {
-            "button_label": "Products",
+            "button_label": "Shop All",
             "button_link": "shopify://collections/all",
             "button_style_secondary": false,
             "button_label_2": "",
@@ -89,57 +432,16 @@
         }
       },
       "block_order": [
-        "heading_YBP9pm",
-        "text_MqQjp6",
-        "button_TC9UV3"
+        "h",
+        "b"
       ],
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
         "full_width": true,
         "padding_top": 40,
         "padding_bottom": 52
-      }
-    },
-    "collection_list_MiJ9Am": {
-      "type": "collection-list",
-      "blocks": {
-        "featured_collection_3xMeck": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "men"
-          }
-        },
-        "featured_collection_eQRhTW": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "unisex"
-          }
-        },
-        "featured_collection_anVddi": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "women"
-          }
-        }
-      },
-      "block_order": [
-        "featured_collection_3xMeck",
-        "featured_collection_eQRhTW",
-        "featured_collection_anVddi"
-      ],
-      "settings": {
-        "title": "Collections",
-        "heading_size": "h1",
-        "image_ratio": "square",
-        "columns_desktop": 3,
-        "color_scheme": "scheme-1",
-        "show_view_all": false,
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "padding_top": 36,
-        "padding_bottom": 36
       }
     },
     "ss_back_to_top_button_pKpi8j": {
@@ -156,75 +458,17 @@
         "horizontal_dst_to_edge": 20,
         "vertical_dst_to_edge": 20
       }
-    },
-    "collapsible_content_39KBaG": {
-      "type": "collapsible-content",
-      "blocks": {
-        "collapsible_row_bxye8z": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "What is SHMNI?",
-            "icon": "bottle",
-            "row_content": "<p>SHMNI is a fragrance brand offering high-quality perfumes at lower prices. We specialize in crafting scents inspired by well-known brands, allowing you to enjoy the same delightful aromas without paying for the brand name. Why pay a premium for the label when you can get the essence of your favorite cologne at a fraction of the cost?</p><p>At SHMNI, we believe that everyone deserves to indulge in luxurious scents. Our fragrances are meticulously crafted to mirror the essence of high-end brands, ensuring you get the best of both worlds: exceptional quality and affordability. Embrace the luxury of premium fragrances with SHMNI, and discover your new signature scent today.</p>",
-            "page": ""
-          }
-        },
-        "collapsible_row_nmzRa4": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Where is SHMNI made?",
-            "icon": "bottle",
-            "row_content": "<p>SHMNI is made in the USA, with our headquarters located in California. Our fragrance oils are sourced from top-quality ingredients in Switzerland, France, and other parts of Europe.</p>",
-            "page": ""
-          }
-        },
-        "collapsible_row_ehNj7U": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Will I receive any gifts?",
-            "icon": "bottle",
-            "row_content": "<p>Maybe 😉</p>",
-            "page": ""
-          }
-        },
-        "collapsible_row_RD7eKd": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Return Policy",
-            "icon": "return",
-            "row_content": "<p>If the product is damage, or not what you expected please contact us!</p><p>We will try our best to help </p>",
-            "page": ""
-          }
-        }
-      },
-      "block_order": [
-        "collapsible_row_bxye8z",
-        "collapsible_row_nmzRa4",
-        "collapsible_row_ehNj7U",
-        "collapsible_row_RD7eKd"
-      ],
-      "settings": {
-        "caption": "",
-        "heading": "FAQ",
-        "heading_size": "h1",
-        "heading_alignment": "center",
-        "layout": "none",
-        "color_scheme": "",
-        "container_color_scheme": "",
-        "open_first_collapsible_row": false,
-        "image_ratio": "adapt",
-        "desktop_layout": "image_second",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
     }
   },
   "order": [
     "background_video_HHrHei",
-    "featured_collection",
-    "rich_text_HRx9Qe",
-    "collection_list_MiJ9Am",
-    "ss_back_to_top_button_pKpi8j",
-    "collapsible_content_39KBaG"
+    "best_sellers",
+    "why_shmni",
+    "signature_collections",
+    "custom_testimonials",
+    "lifestyle",
+    "image_with_text_ncHqWb",
+    "final_cta",
+    "ss_back_to_top_button_pKpi8j"
   ]
 }
