@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
@@ -16,38 +7,1218 @@
     "quiz": {
       "type": "scent-quiz",
       "blocks": {
-        "b1": {
+        "ai_match_0": {
           "type": "product_match",
           "settings": {
-            "gender": "men",
-            "vibe": "fresh",
-            "occasion": "everyday",
-            "short_desc": "Grapefruit, Bergamot, Black Currant"
-          }
-        },
-        "b2": {
-          "type": "product_match",
-          "settings": {
-            "gender": "unisex",
-            "vibe": "sweet",
-            "occasion": "date",
-            "short_desc": "Saffron, Jasmine, Amberwood"
-          }
-        },
-        "b3": {
-          "type": "product_match",
-          "settings": {
+            "product": "inspired-by-tilia-copy",
+            "short_desc": "Pink Pepper, Bergamot, Geranium",
             "gender": "unisex",
             "vibe": "dark",
-            "occasion": "special",
-            "short_desc": "Oud, Rosewood, Vanilla"
+            "occasion": "special"
+          }
+        },
+        "ai_match_1": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-blue-talisman-copy",
+            "short_desc": "Lime Linden Blossom, Jasmine Sambac, Broom",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_2": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-nior-exreme-copy",
+            "short_desc": "Pear, Bergamot, Mandarin Orange, Ginger",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_3": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-nior-exreme",
+            "short_desc": "Cardamom, Nutmeg, Saffron, Mandarin Orange, Neroli",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_4": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-delina-copy",
+            "short_desc": "Galbanum, Bergamot",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_5": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-guidance-46-copy",
+            "short_desc": "Litchi, Rhubarb, Bergamot, Nutmeg, Black Currant",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_6": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-guidance-46",
+            "short_desc": "Rose Water, Pear, Hazelnut, Bitter Almond, Frankincense, Pin",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_7": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-gentle-fluidity-silver-copy",
+            "short_desc": "Saffron, Bergamot",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_8": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-eros-copy",
+            "short_desc": "Juniper Berries, Nutmeg, Bergamot, Pineapple",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_9": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-angels-share-copy",
+            "short_desc": "Mint, Green Apple, Lemon",
+            "gender": "unisex",
+            "vibe": "sweet",
+            "occasion": "date"
+          }
+        },
+        "ai_match_10": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-atomic-rose-copy",
+            "short_desc": "Cogna",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_11": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-yum-boujee-marshmallow-81-copy",
+            "short_desc": "Pink Pepper, Bergamot",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_12": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-arabians-tonka-copy",
+            "short_desc": "Freesia, Italian Lemon, Nectarine Blossom, Apple",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_13": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-hypnotic-poison-copy",
+            "short_desc": "Saffron, Bergamot",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_14": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-bianco-latte-copy",
+            "short_desc": "Coconut, Plum, Apricot",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_15": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-eden-sparkling-lychee-39-copy",
+            "short_desc": "Caramel",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_16": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-starlight-copy",
+            "short_desc": "Litchi, Black Currant, Red Apple, Italian Lemon",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_17": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-le-beau-flower-edition-copy",
+            "short_desc": "Cardamom, Bergamot",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_18": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-le-beau-flower-edition",
+            "short_desc": "Kumquat, Lemon",
+            "gender": "unisex",
+            "vibe": "sweet",
+            "occasion": "date"
+          }
+        },
+        "ai_match_19": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-tobac-vanille-copy",
+            "short_desc": "Truffle, Gardenia, Black Currant, YlangYlang, Jasmine, Berga",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_20": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-tobac-vanille",
+            "short_desc": "Tobco Leaf, Spicy Notes",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_21": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-california-dream-copy",
+            "short_desc": "Cinnamon, Orange Blossom, Cardamom, Bergamot",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_22": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-matiere-noire-copy",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_23": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-matiere-noire",
+            "short_desc": "Blackcurrant Syrup, Watery Notes",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_24": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-oud-vanilla-28-copy",
+            "short_desc": "Spices, Cinnamon, Caraway, Fenugreek, Carrot Seeds",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_25": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-oud-vanilla-28",
+            "short_desc": "Vanilla Orchid, Jasmine",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_26": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-oud-maracuja-copy",
+            "short_desc": "Passionfruit, Fruity Notes, Turkish Rose, Saffron",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_27": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-le-beau-paradise-garden-copy",
+            "short_desc": "Vanilla, Pear, Marshmallow, Rum, Violet Leaves, YlangYlang",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_28": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-imagination-2",
+            "short_desc": "Citron, Calabrian bergamot, Sicilian Orange",
+            "gender": "men",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_29": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-hero-edp-copy",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_30": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-hero-edp",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "any",
+            "occasion": "everyday"
+          }
+        },
+        "ai_match_31": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-god-of-fire",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_32": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-stellar-times-copy",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "fresh",
+            "occasion": "everyday"
+          }
+        },
+        "ai_match_33": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-palatine-copy",
+            "short_desc": "Freesia, Cyclamen, Rhubrub",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_34": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-oud-rosewood",
+            "short_desc": "Raspberry, Quince",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_35": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-grand-soir",
+            "short_desc": "Spanish Labdanum, Orange",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_36": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-ambre-nuit-esprit-de-parfum",
+            "short_desc": "Cinnamon, Cardamom",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_37": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-her-elixir-de-parfum",
+            "short_desc": "Strawberry, Blackberry",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_38": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-elysium",
+            "short_desc": "Grapefruit, Lemon, Bergamot, Lime, Thyme, Artemisia, Galbanu",
+            "gender": "men",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_39": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-black-opium-over-red",
+            "short_desc": "Cherry, Green Mandarin",
+            "gender": "unisex",
+            "vibe": "sweet",
+            "occasion": "date"
+          }
+        },
+        "ai_match_40": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-palatine",
+            "short_desc": "Pear, Bergamot, Mandarin",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_41": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-oudgasm-rose-oud-16-eau-de-parfum-intense",
+            "short_desc": "Geranium, Lemon, Pear",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_42": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-gaultier-divine-le-parfum",
+            "short_desc": "Solar Notes, Lily",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_43": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-y-edp",
+            "short_desc": "Apple, Ginger, Bergamot",
+            "gender": "men",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_44": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-caban",
+            "short_desc": "elemi Pink Pepper Black Pepper",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_45": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-all-of-me-intense",
+            "short_desc": "Black Iris, Jasmine Sambac",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_46": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-quattro-pizzi",
+            "short_desc": "Davana, Rum, Pink Pepper, Coriander",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_47": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-gran-ballo",
+            "short_desc": "Red Berries, Tangerine",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_48": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-maui-in-a-bottle-sweet-banana-37-eau-de-parfum",
+            "short_desc": "Banana, Pear",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_49": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-sekushi-no-7",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_50": {
+          "type": "product_match",
+          "settings": {
+            "product": "iykyk-2",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_51": {
+          "type": "product_match",
+          "settings": {
+            "product": "musk-x-berry-copy",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_52": {
+          "type": "product_match",
+          "settings": {
+            "product": "musk-x-berry",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_53": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-naxos-copy",
+            "short_desc": "Palisander Rosewood, Lavender, Cinnamon, Apple",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_54": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-naxos",
+            "short_desc": "Lavender, Bergamot, Lemon",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_55": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-centaurus",
+            "short_desc": "Cinnamon, Tobacco, Cardamom, Pink Pepper",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_56": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-delphonos",
+            "short_desc": "Almond, Incense, Pink Pepper, Black Pepper",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_57": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-song-in-the-wind-copy",
+            "short_desc": "Incense, Rose",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_58": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-crush-on-me-copy",
+            "short_desc": "Saffron, Raspberry, Bergamot",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_59": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-crush",
+            "short_desc": "Ginger, Lime",
+            "gender": "unisex",
+            "vibe": "sweet",
+            "occasion": "date"
+          }
+        },
+        "ai_match_60": {
+          "type": "product_match",
+          "settings": {
+            "product": "creme-silk-car-freshener",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_61": {
+          "type": "product_match",
+          "settings": {
+            "product": "zest-essence-car-freshener",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_62": {
+          "type": "product_match",
+          "settings": {
+            "product": "oud-car-freshener",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_63": {
+          "type": "product_match",
+          "settings": {
+            "product": "golden-dusk-car-freshener",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_64": {
+          "type": "product_match",
+          "settings": {
+            "product": "island-bloom-car-freshener",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_65": {
+          "type": "product_match",
+          "settings": {
+            "product": "540-car-freshener",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_66": {
+          "type": "product_match",
+          "settings": {
+            "product": "ocean-breeze-car-freshener",
+            "short_desc": "and",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_67": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-afternoon-swim",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_68": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-pacific-chill",
+            "short_desc": "Citron, Mint, Orange, Lemon, Black Currant, Coriander",
+            "gender": "unisex",
+            "vibe": "floral",
+            "occasion": "any"
+          }
+        },
+        "ai_match_69": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-voice-of-the-snake",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_70": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-molecule-02",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "any",
+            "occasion": "everyday"
+          }
+        },
+        "ai_match_71": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-no-5-copy",
+            "short_desc": "Apple, Pink Pepper, Rosemary, Saffron, Cloves",
+            "gender": "unisex",
+            "vibe": "floral",
+            "occasion": "any"
+          }
+        },
+        "ai_match_72": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-myslf-copy",
+            "short_desc": "Spices,Exotic floral notes",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_73": {
+          "type": "product_match",
+          "settings": {
+            "product": "iykyk-1",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_74": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-oud-ispahan",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_75": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-si-passione-intense-2024",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_76": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-myslf",
+            "short_desc": "Calabrian bergamot, Bergamot",
+            "gender": "men",
+            "vibe": "floral",
+            "occasion": "any"
+          }
+        },
+        "ai_match_77": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-supreme-bouquet",
+            "short_desc": "Fruity Notes, Pear, Pink Pepper",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_78": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-born-in-roma",
+            "short_desc": "Mineral notes, Violet Leaf, Salt",
+            "gender": "men",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_79": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-vanilla-s-x",
+            "short_desc": "Bitter Almond",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_80": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-ombre-leather",
+            "short_desc": "Cardamom",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_81": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-invictus-victory-elixir",
+            "short_desc": "Lavender, Cardamom, Black Pepper",
+            "gender": "men",
+            "vibe": "sweet",
+            "occasion": "date"
+          }
+        },
+        "ai_match_82": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-hacivat",
+            "short_desc": "Pineapple, Grapefruit, Bergamot",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_83": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-ani",
+            "short_desc": "Ginger, Bergamot, Pink Pepper, Green Notes",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_84": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-baccarat-rouge-540",
+            "short_desc": "Saffron, Jasmine",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_85": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-stellar-times",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_86": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-ombre-nomade",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_87": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-black-phantom",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_88": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-smoking-hot",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_89": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-le-beau-le-parfum",
+            "short_desc": "Pineapple, Iris, Ginger, Cypress",
+            "gender": "men",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_90": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-le-male-elixir",
+            "short_desc": "",
+            "gender": "men",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_91": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-psychedelic-love",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_92": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-side-effect",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_93": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-santal-33",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_94": {
+          "type": "product_match",
+          "settings": {
+            "product": "purple-wood",
+            "short_desc": "Signature SHMNI Blend",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_95": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-sauvage-elixir",
+            "short_desc": "Nutmeg, Cinnamon, Cardamom, Grapefruit",
+            "gender": "men",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_96": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-homme-intense",
+            "short_desc": "",
+            "gender": "men",
+            "vibe": "floral",
+            "occasion": "any"
+          }
+        },
+        "ai_match_97": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-percival",
+            "short_desc": "Bergamot, Mandarin, Pink Pepper",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_98": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-sedley",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_99": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-greenley",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_100": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-pegasus",
+            "short_desc": "",
+            "gender": "men",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_101": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-layton",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_102": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-absolu-aventus",
+            "short_desc": "",
+            "gender": "men",
+            "vibe": "fresh",
+            "occasion": "everyday"
+          }
+        },
+        "ai_match_103": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-himalaya",
+            "short_desc": "",
+            "gender": "men",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_104": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-aventus",
+            "short_desc": "",
+            "gender": "men",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_105": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-allure-homme-sport",
+            "short_desc": "",
+            "gender": "men",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_106": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-bleu-de-chanel-parfum",
+            "short_desc": "",
+            "gender": "men",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_107": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-tygar",
+            "short_desc": "",
+            "gender": "men",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_108": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-oud-for-greatness",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
+          }
+        },
+        "ai_match_109": {
+          "type": "product_match",
+          "settings": {
+            "product": "inspired-by-oud-satin-mood",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special"
           }
         }
       },
       "block_order": [
-        "b1",
-        "b2",
-        "b3"
+        "ai_match_0",
+        "ai_match_1",
+        "ai_match_2",
+        "ai_match_3",
+        "ai_match_4",
+        "ai_match_5",
+        "ai_match_6",
+        "ai_match_7",
+        "ai_match_8",
+        "ai_match_9",
+        "ai_match_10",
+        "ai_match_11",
+        "ai_match_12",
+        "ai_match_13",
+        "ai_match_14",
+        "ai_match_15",
+        "ai_match_16",
+        "ai_match_17",
+        "ai_match_18",
+        "ai_match_19",
+        "ai_match_20",
+        "ai_match_21",
+        "ai_match_22",
+        "ai_match_23",
+        "ai_match_24",
+        "ai_match_25",
+        "ai_match_26",
+        "ai_match_27",
+        "ai_match_28",
+        "ai_match_29",
+        "ai_match_30",
+        "ai_match_31",
+        "ai_match_32",
+        "ai_match_33",
+        "ai_match_34",
+        "ai_match_35",
+        "ai_match_36",
+        "ai_match_37",
+        "ai_match_38",
+        "ai_match_39",
+        "ai_match_40",
+        "ai_match_41",
+        "ai_match_42",
+        "ai_match_43",
+        "ai_match_44",
+        "ai_match_45",
+        "ai_match_46",
+        "ai_match_47",
+        "ai_match_48",
+        "ai_match_49",
+        "ai_match_50",
+        "ai_match_51",
+        "ai_match_52",
+        "ai_match_53",
+        "ai_match_54",
+        "ai_match_55",
+        "ai_match_56",
+        "ai_match_57",
+        "ai_match_58",
+        "ai_match_59",
+        "ai_match_60",
+        "ai_match_61",
+        "ai_match_62",
+        "ai_match_63",
+        "ai_match_64",
+        "ai_match_65",
+        "ai_match_66",
+        "ai_match_67",
+        "ai_match_68",
+        "ai_match_69",
+        "ai_match_70",
+        "ai_match_71",
+        "ai_match_72",
+        "ai_match_73",
+        "ai_match_74",
+        "ai_match_75",
+        "ai_match_76",
+        "ai_match_77",
+        "ai_match_78",
+        "ai_match_79",
+        "ai_match_80",
+        "ai_match_81",
+        "ai_match_82",
+        "ai_match_83",
+        "ai_match_84",
+        "ai_match_85",
+        "ai_match_86",
+        "ai_match_87",
+        "ai_match_88",
+        "ai_match_89",
+        "ai_match_90",
+        "ai_match_91",
+        "ai_match_92",
+        "ai_match_93",
+        "ai_match_94",
+        "ai_match_95",
+        "ai_match_96",
+        "ai_match_97",
+        "ai_match_98",
+        "ai_match_99",
+        "ai_match_100",
+        "ai_match_101",
+        "ai_match_102",
+        "ai_match_103",
+        "ai_match_104",
+        "ai_match_105",
+        "ai_match_106",
+        "ai_match_107",
+        "ai_match_108",
+        "ai_match_109"
       ],
       "settings": {
         "heading": "Find Your Signature Scent",
