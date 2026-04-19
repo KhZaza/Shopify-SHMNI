@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "about": {
+      "type": "about-cinematic",
+      "settings": {}
+    }
+  },
+  "order": [
+    "about"
+  ]
+}
