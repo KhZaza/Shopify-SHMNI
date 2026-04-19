@@ -20,18 +20,10 @@
           "settings": {
             "show_social": true
           }
-        },
-        "link_list_1": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Quick links",
-            "menu": "footer"
-          }
         }
       },
       "block_order": [
-        "brand_information_pDLNmm",
-        "link_list_1"
+        "brand_information_pDLNmm"
       ],
       "settings": {
         "color_scheme": "scheme-1",
