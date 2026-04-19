@@ -1,0 +1,53 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "quiz": {
+      "type": "scent-quiz",
+      "blocks": {
+        "b1": {
+          "type": "product_match",
+          "settings": {
+            "gender": "men",
+            "vibe": "fresh",
+            "occasion": "everyday",
+            "short_desc": "Grapefruit, Bergamot, Black Currant"
+          }
+        },
+        "b2": {
+          "type": "product_match",
+          "settings": {
+            "gender": "unisex",
+            "vibe": "sweet",
+            "occasion": "date",
+            "short_desc": "Saffron, Jasmine, Amberwood"
+          }
+        },
+        "b3": {
+          "type": "product_match",
+          "settings": {
+            "gender": "unisex",
+            "vibe": "dark",
+            "occasion": "special",
+            "short_desc": "Oud, Rosewood, Vanilla"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "settings": {
+        "heading": "Find Your Signature Scent",
+        "subheading": "Take our 30-second AI-powered quiz to find your perfect match."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "quiz"
+  ]
+}

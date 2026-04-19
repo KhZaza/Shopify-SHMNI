@@ -1,0 +1,345 @@
+<style>
+  .scent-quiz-container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 40px 20px;
+    text-align: center;
+    font-family: inherit;
+  }
+  .quiz-step {
+    display: none;
+    animation: fadeIn 0.5s ease;
+  }
+  .quiz-step.active {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .quiz-title {
+    font-size: 32px;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  .quiz-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 40px;
+  }
+  .quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  @media (max-width: 600px) {
+    .quiz-options { grid-template-columns: 1fr; }
+  }
+  .quiz-btn {
+    padding: 20px;
+    border: 1px solid #121212;
+    background: transparent;
+    color: #121212;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+  }
+  .quiz-btn:hover {
+    background: #121212;
+    color: #fff;
+  }
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #121212;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 40px auto;
+  }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+  }
+  .result-card {
+    display: none;
+    text-align: left;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  .result-card.show {
+    display: block;
+  }
+  .result-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    margin-bottom: 15px;
+    background: #f4f4f4;
+  }
+  .result-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  .result-desc {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.4;
+  }
+  .result-atc {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #121212;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+  .result-atc:hover { background: #333; }
+</style>
+
+<div class="scent-quiz-container" id="ScentQuiz">
+  
+  <div class="quiz-step active" id="step-0">
+    <h2 class="quiz-title">{{ section.settings.heading }}</h2>
+    <p class="quiz-subtitle">{{ section.settings.subheading }}</p>
+    <button class="quiz-btn" style="width: 200px; margin: 0 auto; display: block;" onclick="nextStep(1)">Start Quiz</button>
+  </div>
+
+  <div class="quiz-step" id="step-1">
+    <h2 class="quiz-title">Who are you shopping for?</h2>
+    <div class="quiz-options">
+      <button class="quiz-btn" onclick="saveAnswer('gender', 'men', 2)">Men</button>
+      <button class="quiz-btn" onclick="saveAnswer('gender', 'women', 2)">Women</button>
+      <button class="quiz-btn" style="grid-column: 1 / -1;" onclick="saveAnswer('gender', 'unisex', 2)">Unisex / Doesn't Matter</button>
+    </div>
+  </div>
+
+  <div class="quiz-step" id="step-2">
+    <h2 class="quiz-title">What is your ideal vibe?</h2>
+    <div class="quiz-options">
+      <button class="quiz-btn" onclick="saveAnswer('vibe', 'fresh', 3)">Fresh & Clean</button>
+      <button class="quiz-btn" onclick="saveAnswer('vibe', 'dark', 3)">Dark & Mysterious</button>
+      <button class="quiz-btn" onclick="saveAnswer('vibe', 'sweet', 3)">Sweet & Warm</button>
+      <button class="quiz-btn" onclick="saveAnswer('vibe', 'floral', 3)">Floral & Elegant</button>
+    </div>
+  </div>
+
+  <div class="quiz-step" id="step-3">
+    <h2 class="quiz-title">When will you wear this most?</h2>
+    <div class="quiz-options">
+      <button class="quiz-btn" onclick="saveAnswer('occasion', 'everyday', 'loading')">Everyday / Office</button>
+      <button class="quiz-btn" onclick="saveAnswer('occasion', 'date', 'loading')">Date Night</button>
+      <button class="quiz-btn" style="grid-column: 1 / -1;" onclick="saveAnswer('occasion', 'special', 'loading')">Special Occasions</button>
+    </div>
+  </div>
+
+  <div class="quiz-step" id="step-loading">
+    <div class="loading-spinner"></div>
+    <h2 class="quiz-title" style="font-size: 24px;">Analyzing Scent Profile...</h2>
+  </div>
+
+  <div class="quiz-step" id="step-results">
+    <h2 class="quiz-title">Your Signature Scents</h2>
+    <p class="quiz-subtitle">Based on your answers, our AI-powered engine recommends these matches.</p>
+    
+    <div class="results-grid" id="quiz-results-container">
+      {% for block in section.blocks %}
+        {% assign prod = block.settings.product %}
+        {% if prod != blank %}
+          <div class="result-card" 
+               data-gender="{{ block.settings.gender }}" 
+               data-vibe="{{ block.settings.vibe }}" 
+               data-occasion="{{ block.settings.occasion }}">
+            <a href="{{ prod.url }}">
+              <img src="{{ prod.featured_image | image_url: width: 400 }}" class="result-image" alt="{{ prod.title }}">
+            </a>
+            <div class="result-title">{{ prod.title }}</div>
+            <div class="result-desc">{{ block.settings.short_desc | default: prod.price | money }}</div>
+            <a href="{{ prod.url }}" class="result-atc">View Product</a>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    <div id="no-results-msg" style="display:none; margin-top: 40px;">
+      <p>We couldn't find a perfect 3-match, but you can explore our best sellers!</p>
+      <a href="/collections/all" class="quiz-btn" style="display:inline-block; text-decoration:none;">Shop All</a>
+    </div>
+    
+    <button class="quiz-btn" style="margin-top: 40px; border-color: transparent; text-decoration: underline;" onclick="resetQuiz()">Retake Quiz</button>
+  </div>
+</div>
+
+<script>
+  var userAnswers = {
+    gender: '',
+    vibe: '',
+    occasion: ''
+  };
+
+  function nextStep(stepIdx) {
+    document.querySelectorAll('.quiz-step').forEach(el => el.classList.remove('active'));
+    document.getElementById('step-' + stepIdx).classList.add('active');
+  }
+
+  function saveAnswer(key, value, nextIdx) {
+    userAnswers[key] = value;
+    
+    if (nextIdx === 'loading') {
+      nextStep('loading');
+      setTimeout(calculateResults, 2000);
+    } else {
+      nextStep(nextIdx);
+    }
+  }
+
+  function calculateResults() {
+    nextStep('results');
+    
+    var cards = document.querySelectorAll('.result-card');
+    var matchCount = 0;
+    
+    var scoredCards = [];
+    
+    cards.forEach(function(card) {
+      var score = 0;
+      var cGender = card.getAttribute('data-gender');
+      var cVibe = card.getAttribute('data-vibe');
+      var cOccasion = card.getAttribute('data-occasion');
+      
+      if (cGender === userAnswers.gender || cGender === 'unisex' || userAnswers.gender === 'unisex') {
+        score += 2;
+      }
+      if (cVibe === userAnswers.vibe || cVibe === 'any') {
+        score += 3;
+      }
+      if (cOccasion === userAnswers.occasion || cOccasion === 'any') {
+        score += 1;
+      }
+      
+      scoredCards.push({ element: card, score: score });
+    });
+    
+    scoredCards.sort(function(a, b) { return b.score - a.score; });
+    
+    var revealLimit = Math.min(3, scoredCards.length);
+    
+    for (var i = 0; i < revealLimit; i++) {
+      if (scoredCards[i].score > 0) {
+        scoredCards[i].element.classList.add('show');
+        matchCount++;
+      }
+    }
+    
+    if (matchCount === 0) {
+      document.getElementById('no-results-msg').style.display = 'block';
+    }
+  }
+  
+  function resetQuiz() {
+    userAnswers = { gender: '', vibe: '', occasion: '' };
+    document.querySelectorAll('.result-card').forEach(el => el.classList.remove('show'));
+    document.getElementById('no-results-msg').style.display = 'none';
+    nextStep(1);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Scent Quiz",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Find Your Signature Scent"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Take our 30-second AI-powered quiz to find your perfect match."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_match",
+      "name": "Quiz Result Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "short_desc",
+          "label": "Short Description",
+          "info": "Brief summary of notes, e.g., 'Saffron, Jasmine, Amberwood'"
+        },
+        {
+          "type": "select",
+          "id": "gender",
+          "label": "Target Gender",
+          "options": [
+            { "value": "men", "label": "Men" },
+            { "value": "women", "label": "Women" },
+            { "value": "unisex", "label": "Unisex" }
+          ],
+          "default": "unisex"
+        },
+        {
+          "type": "select",
+          "id": "vibe",
+          "label": "Vibe Profile",
+          "options": [
+            { "value": "fresh", "label": "Fresh & Clean" },
+            { "value": "dark", "label": "Dark & Mysterious" },
+            { "value": "sweet", "label": "Sweet & Warm" },
+            { "value": "floral", "label": "Floral & Elegant" },
+            { "value": "any", "label": "Any / Versatile" }
+          ],
+          "default": "fresh"
+        },
+        {
+          "type": "select",
+          "id": "occasion",
+          "label": "Occasion",
+          "options": [
+            { "value": "everyday", "label": "Everyday / Office" },
+            { "value": "date", "label": "Date Night" },
+            { "value": "special", "label": "Special Occasions" },
+            { "value": "any", "label": "Any / All Occasions" }
+          ],
+          "default": "everyday"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scent Quiz",
+      "blocks": [
+        { "type": "product_match" },
+        { "type": "product_match" },
+        { "type": "product_match" }
+      ]
+    }
+  ]
+}
+{% endschema %}
