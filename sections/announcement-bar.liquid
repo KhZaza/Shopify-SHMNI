@@ -59,6 +59,20 @@
           align-items: center;
           gap: 30px;
         }
+        .neon-text {
+          color: #ff2a55;
+          animation: neon-flicker 3s infinite;
+        }
+        @keyframes neon-flicker {
+          0%, 18%, 22%, 25%, 53%, 57%, 100% {
+            text-shadow: 0 0 2px #fff, 0 0 5px #ff2a55, 0 0 10px #ff2a55, 0 0 20px #ff2a55;
+            opacity: 1;
+          }
+          20%, 24%, 55% {
+            text-shadow: none;
+            opacity: 0.3;
+          }
+        }
         @keyframes marquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
@@ -72,7 +86,7 @@
           
           <div class="marquee-container">
             <div class="marquee-content">
-              {% assign msg = section.blocks.first.settings.text | escape | replace: '----', '✦' %}
+              {% assign msg = section.blocks.first.settings.text | escape | replace: '----', '✦' | replace: 'Free Shipping', '<span class="neon-text">FREE SHIPPING</span>' | replace: 'FREE SHIPPING', '<span class="neon-text">FREE SHIPPING</span>' | replace: 'free shipping', '<span class="neon-text">FREE SHIPPING</span>' %}
               <span>
                 {{ msg }} ✦ {{ msg }} ✦ {{ msg }} ✦
               </span>
