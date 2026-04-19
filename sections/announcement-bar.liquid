@@ -27,25 +27,52 @@
       {%- render 'social-icons' -%}
     {%- endif -%}
     {%- if section.blocks.size == 1 -%}
-      <div
-        class="announcement-bar{% if section.settings.show_social %} announcement-bar--one-announcement{% endif %}"
-        role="region"
-        aria-label="{{ 'sections.header.announcement' | t }}"
-        {{ block.shopify_attributes }}
-      >
+      <style>
+        .marquee-container {
+          overflow: hidden;
+          white-space: nowrap;
+          display: flex;
+          align-items: center;
+          padding: 10px 0;
+          width: 100%;
+        }
+        .marquee-content {
+          display: inline-block;
+          animation: marquee 25s linear infinite;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+        }
+        .marquee-content span {
+          padding: 0 30px;
+          display: inline-flex;
+          align-items: center;
+          gap: 30px;
+        }
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      </style>
+      <div class="announcement-bar" role="region" aria-label="{{ 'sections.header.announcement' | t }}" {{ block.shopify_attributes }}>
         {%- if section.blocks.first.settings.text != blank -%}
           {%- if section.blocks.first.settings.link != blank -%}
-            <a
-              href="{{ section.blocks.first.settings.link }}"
-              class="announcement-bar__link link link--text focus-inset animate-arrow"
-            >
+            <a href="{{ section.blocks.first.settings.link }}" class="announcement-bar__link link link--text focus-inset animate-arrow" style="text-decoration:none;">
           {%- endif -%}
-          <p class="announcement-bar__message h5">
-            <span>{{ section.blocks.first.settings.text | escape }}</span>
-            {%- if section.blocks.first.settings.link != blank -%}
-              {% render 'icon-arrow' %}
-            {%- endif -%}
-          </p>
+          
+          <div class="marquee-container">
+            <div class="marquee-content">
+              {% assign msg = section.blocks.first.settings.text | escape | replace: '----', '✦' %}
+              <span>
+                {{ msg }} ✦ {{ msg }} ✦ {{ msg }} ✦
+              </span>
+              <span>
+                {{ msg }} ✦ {{ msg }} ✦ {{ msg }} ✦
+              </span>
+            </div>
+          </div>
+
           {%- if section.blocks.first.settings.link != blank -%}
             </a>
           {%- endif -%}
