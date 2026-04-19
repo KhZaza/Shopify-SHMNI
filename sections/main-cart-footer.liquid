@@ -155,28 +155,45 @@
             {%- when 'subtotal' -%}
               <div class="js-contents" {{ block.shopify_attributes }}>
 
-                {%- comment -%} ── FREE SHIPPING PROGRESS BAR ── {%- endcomment -%}
-                {%- assign free_shipping_threshold = 9000 -%}
-                {%- assign cart_total = cart.total_price -%}
-                {%- assign remaining = free_shipping_threshold | minus: cart_total -%}
-                {%- if remaining < 0 -%}{%- assign remaining = 0 -%}{%- endif -%}
-                {%- assign progress = cart_total | times: 100 | divided_by: free_shipping_threshold -%}
-                {%- if progress > 100 -%}{%- assign progress = 100 -%}{%- endif -%}
-
-                <div class="cart-shipping-bar{% if remaining == 0 %} cart-shipping-bar--qualified{% endif %}">
-                  {%- if remaining == 0 -%}
-                    <div class="cart-shipping-bar__text">
-                      🎉 <strong>Congratulations!</strong> You've unlocked <strong>FREE SHIPPING</strong>
-                    </div>
-                  {%- else -%}
-                    <div class="cart-shipping-bar__text">
-                      You're <strong>{{ remaining | money }}</strong> away from <strong>FREE SHIPPING</strong>
-                    </div>
-                  {%- endif -%}
+                {%- comment -%} ── FREE SHIPPING PROGRESS BAR (JS-Driven) ── {%- endcomment -%}
+                <div class="cart-shipping-bar" id="cart-shipping-bar">
+                  <div class="cart-shipping-bar__text" id="cart-shipping-text"></div>
                   <div class="cart-shipping-bar__track">
-                    <div class="cart-shipping-bar__fill" style="width: {{ progress }}%;"></div>
+                    <div class="cart-shipping-bar__fill" id="cart-shipping-fill" style="width: 0%;"></div>
                   </div>
                 </div>
+                <script>
+                  (function() {
+                    function updateShippingBar() {
+                      fetch('/cart.js')
+                        .then(r => r.json())
+                        .then(cart => {
+                          const threshold = 9000;
+                          const total = cart.total_price;
+                          const remaining = Math.max(threshold - total, 0);
+                          const progress = Math.min((total / threshold) * 100, 100);
+                          const bar = document.getElementById('cart-shipping-bar');
+                          const text = document.getElementById('cart-shipping-text');
+                          const fill = document.getElementById('cart-shipping-fill');
+                          if (!bar || !text || !fill) return;
+                          fill.style.width = progress + '%';
+                          if (remaining === 0) {
+                            bar.classList.add('cart-shipping-bar--qualified');
+                            text.innerHTML = '🎉 <strong>Congratulations!</strong> You\'ve unlocked <strong>FREE SHIPPING</strong>';
+                          } else {
+                            bar.classList.remove('cart-shipping-bar--qualified');
+                            const dollars = (remaining / 100).toFixed(2);
+                            text.innerHTML = 'You\'re <strong>$' + dollars + '</strong> away from <strong>FREE SHIPPING</strong>';
+                          }
+                        });
+                    }
+                    updateShippingBar();
+                    // Re-check whenever the page regains focus (e.g. after adding items via notification)
+                    document.addEventListener('visibilitychange', function() {
+                      if (!document.hidden) updateShippingBar();
+                    });
+                  })();
+                </script>
 
                 {%- comment -%} ── ESTIMATED DELIVERY ── {%- endcomment -%}
                 <div class="cart-estimated-delivery">
