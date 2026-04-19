@@ -256,6 +256,7 @@
                       let topNotes = [];
                       let middleNotes = [];
                       let baseNotes = [];
+                      let genericNotes = [];
 
                       const paragraphs = descContainer.querySelectorAll('p, div');
                       paragraphs.forEach(p => {
@@ -272,6 +273,9 @@
                         } else if (text.includes('BASE NOTES:')) {
                            let parts = p.innerText.split(/:/);
                            if(parts.length > 1) { raw = parts.slice(1).join(':'); baseNotes = parseNotes(raw); found = true; }
+                        } else if (text.startsWith('NOTES:')) {
+                           let parts = p.innerText.split(/:/);
+                           if(parts.length > 1) { raw = parts.slice(1).join(':'); genericNotes = parseNotes(raw); found = true; }
                         }
                         
                         if(found) {
@@ -283,9 +287,9 @@
                         return rawStr.split(',').map(n => n.trim().replace(/\.$/, '')).filter(n => n.length > 0);
                       }
 
+                      let html = '';
+
                       if (topNotes.length || middleNotes.length || baseNotes.length) {
-                        let html = '';
-                        
                         if (topNotes.length) {
                           html += '<div class="scent-tier"><div class="scent-tier-title">Top Notes (The First Impression)</div><div class="scent-notes">';
                           topNotes.forEach(note => html += `<div class="scent-note-pill">${note}</div>`);
@@ -301,7 +305,13 @@
                           baseNotes.forEach(note => html += `<div class="scent-note-pill">${note}</div>`);
                           html += '</div></div>';
                         }
+                      } else if (genericNotes.length) {
+                        html += '<div class="scent-tier"><div class="scent-tier-title">Signature Notes</div><div class="scent-notes">';
+                        genericNotes.forEach(note => html += `<div class="scent-note-pill">${note}</div>`);
+                        html += '</div></div>';
+                      }
                         
+                      if (html !== '') {
                         pyramidContainer.innerHTML = html;
                         pyramidContainer.style.display = 'block';
                       }
