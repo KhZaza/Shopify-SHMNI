@@ -17,20 +17,33 @@
     letter-spacing: 1px;
   }
   .custom-testimonials-slider {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 24px;
-    padding: 20px;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    overflow: hidden;
+    width: 100%;
+    padding: 20px 0;
+    position: relative;
+    /* Hide scrollbar for neatness if any */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
   .custom-testimonials-slider::-webkit-scrollbar {
     display: none;
   }
+  .marquee-track {
+    display: inline-flex;
+    gap: 24px;
+    /* Add padding to start and end for initial layout */
+    padding: 0 12px;
+    animation: marquee-scroll 40s linear infinite;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+  @keyframes marquee-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 12px)); }
+  }
   .custom-testimonial-card {
     flex: 0 0 300px;
-    scroll-snap-align: center;
     background: #ffffff;
     border-radius: 12px;
     padding: 30px;
@@ -38,13 +51,21 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    white-space: normal;
   }
+  /* Dark Mode specific overrides */
+  html.theme-dark .custom-testimonial-card {
+    background: #1a1a1a;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+  html.theme-dark .custom-testimonial-text { color: #ccc; }
+  html.theme-dark .custom-testimonial-name { color: #fff; }
+  html.theme-dark .custom-testimonials-header h2 { color: #fff; }
+  html.theme-dark .custom-testimonials-wrapper { background-color: #121212 !important; }
+
   @media (min-width: 768px) {
     .custom-testimonial-card {
       flex: 0 0 360px;
-    }
-    .custom-testimonials-slider {
-      padding: 20px 10vw 40px 10vw;
     }
   }
   .custom-testimonial-stars {
@@ -111,34 +132,67 @@
     </div>
   {% endif %}
   <div class="custom-testimonials-slider">
-    {% for block in section.blocks %}
-      <div class="custom-testimonial-card" {{ block.shopify_attributes }}>
-        <div class="custom-testimonial-stars">
-          {% for i in (1..5) %}
-            <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
-          {% endfor %}
-        </div>
-        <div class="custom-testimonial-text">
-          "{{ block.settings.review_text }}"
-        </div>
-        <div class="custom-testimonial-author">
-          {% if block.settings.author_image != blank %}
-            <img src="{{ block.settings.author_image | image_url: width: 88 }}" width="44" height="44" class="custom-testimonial-avatar" alt="{{ block.settings.author_name }}">
-          {% else %}
-            <div class="custom-testimonial-avatar" style="display:flex;align-items:center;justify-content:center;font-size:16px;color:#888;font-weight:bold;">{{ block.settings.author_name | slice: 0, 1 }}</div>
-          {% endif %}
-          <div class="custom-testimonial-author-info">
-            <span class="custom-testimonial-name">{{ block.settings.author_name }}</span>
-            {% if block.settings.show_verified %}
-              <span class="custom-testimonial-verified">
-                <svg viewBox="0 0 24 24"><path d="M9 16.172l-4.172-4.172-1.414 1.414L9 19 21 7l-1.414-1.414z"/></svg>
-                Verified Customer
-              </span>
+    <div class="marquee-track">
+      <!-- Original Set -->
+      {% for block in section.blocks %}
+        <div class="custom-testimonial-card" {{ block.shopify_attributes }}>
+          <div class="custom-testimonial-stars">
+            {% for i in (1..5) %}
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+            {% endfor %}
+          </div>
+          <div class="custom-testimonial-text">
+            "{{ block.settings.review_text }}"
+          </div>
+          <div class="custom-testimonial-author">
+            {% if block.settings.author_image != blank %}
+              <img src="{{ block.settings.author_image | image_url: width: 88 }}" width="44" height="44" class="custom-testimonial-avatar" alt="{{ block.settings.author_name }}">
+            {% else %}
+              <div class="custom-testimonial-avatar" style="display:flex;align-items:center;justify-content:center;font-size:16px;color:#888;font-weight:bold;">{{ block.settings.author_name | slice: 0, 1 }}</div>
             {% endif %}
+            <div class="custom-testimonial-author-info">
+              <span class="custom-testimonial-name">{{ block.settings.author_name }}</span>
+              {% if block.settings.show_verified %}
+                <span class="custom-testimonial-verified">
+                  <svg viewBox="0 0 24 24"><path d="M9 16.172l-4.172-4.172-1.414 1.414L9 19 21 7l-1.414-1.414z"/></svg>
+                  Verified Customer
+                </span>
+              {% endif %}
+            </div>
           </div>
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+      
+      <!-- Duplicated Set for Infinite Loop -->
+      {% for block in section.blocks %}
+        <div class="custom-testimonial-card">
+          <div class="custom-testimonial-stars">
+            {% for i in (1..5) %}
+              <svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
+            {% endfor %}
+          </div>
+          <div class="custom-testimonial-text">
+            "{{ block.settings.review_text }}"
+          </div>
+          <div class="custom-testimonial-author">
+            {% if block.settings.author_image != blank %}
+              <img src="{{ block.settings.author_image | image_url: width: 88 }}" width="44" height="44" class="custom-testimonial-avatar" alt="{{ block.settings.author_name }}">
+            {% else %}
+              <div class="custom-testimonial-avatar" style="display:flex;align-items:center;justify-content:center;font-size:16px;color:#888;font-weight:bold;">{{ block.settings.author_name | slice: 0, 1 }}</div>
+            {% endif %}
+            <div class="custom-testimonial-author-info">
+              <span class="custom-testimonial-name">{{ block.settings.author_name }}</span>
+              {% if block.settings.show_verified %}
+                <span class="custom-testimonial-verified">
+                  <svg viewBox="0 0 24 24"><path d="M9 16.172l-4.172-4.172-1.414 1.414L9 19 21 7l-1.414-1.414z"/></svg>
+                  Verified Customer
+                </span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
 </div>
 
