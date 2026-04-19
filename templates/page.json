@@ -1,1 +1,69 @@
-{"sections":{"main":{"type":"main-page","settings":{"padding_top":28,"padding_bottom":28}}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "scent_quiz_KKeUAc": {
+      "type": "scent-quiz",
+      "blocks": {
+        "product_match_7Q9Rwb": {
+          "type": "product_match",
+          "settings": {
+            "product": "",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "fresh",
+            "occasion": "everyday"
+          }
+        },
+        "product_match_W3iD9F": {
+          "type": "product_match",
+          "settings": {
+            "product": "",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "fresh",
+            "occasion": "everyday"
+          }
+        },
+        "product_match_ndfWQB": {
+          "type": "product_match",
+          "settings": {
+            "product": "",
+            "short_desc": "",
+            "gender": "unisex",
+            "vibe": "fresh",
+            "occasion": "everyday"
+          }
+        }
+      },
+      "block_order": [
+        "product_match_7Q9Rwb",
+        "product_match_W3iD9F",
+        "product_match_ndfWQB"
+      ],
+      "name": "Scent Quiz",
+      "settings": {
+        "heading": "Find Your Signature Scent",
+        "subheading": "Take our 30-second AI-powered quiz to find your perfect match."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "scent_quiz_KKeUAc"
+  ]
+}
