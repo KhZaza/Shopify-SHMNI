@@ -155,3 +155,108 @@
     <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
 </div>
+
+<style>
+  /* ── Animated Add to Cart Button ── */
+  .product-form__submit {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .product-form__submit:hover:not([disabled]) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  .product-form__submit:active:not([disabled]) {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* Ripple effect */
+  .product-form__submit .btn-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(0);
+    animation: btn-ripple-anim 0.6s ease-out;
+    pointer-events: none;
+  }
+  @keyframes btn-ripple-anim {
+    to { transform: scale(4); opacity: 0; }
+  }
+
+  /* Success state */
+  .product-form__submit.btn-success {
+    background-color: #2e7d32 !important;
+    border-color: #2e7d32 !important;
+    color: #fff !important;
+    pointer-events: none;
+  }
+  .product-form__submit.btn-success:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .btn-success-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-checkmark {
+    width: 18px;
+    height: 18px;
+    stroke: #fff;
+    stroke-width: 2.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .btn-checkmark path {
+    stroke-dasharray: 24;
+    stroke-dashoffset: 24;
+    animation: btn-check-draw 0.4s ease forwards 0.1s;
+  }
+  @keyframes btn-check-draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* Dark mode */
+  html.theme-dark .product-form__submit:hover:not([disabled]) {
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.product-form__submit').forEach(function(btn) {
+      // Ripple on click
+      btn.addEventListener('click', function(e) {
+        if (btn.disabled || btn.classList.contains('btn-success')) return;
+        var ripple = document.createElement('span');
+        ripple.className = 'btn-ripple';
+        var rect = btn.getBoundingClientRect();
+        var size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        btn.appendChild(ripple);
+        setTimeout(function() { ripple.remove(); }, 600);
+      });
+
+      // Success animation after form submits
+      var form = btn.closest('form[data-type="add-to-cart-form"]');
+      if (form) {
+        form.addEventListener('submit', function() {
+          setTimeout(function() {
+            if (btn.disabled) return;
+            var originalHTML = btn.innerHTML;
+            btn.classList.add('btn-success');
+            btn.innerHTML = '<span class="btn-success-content"><svg class="btn-checkmark" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Added!</span>';
+            setTimeout(function() {
+              btn.classList.remove('btn-success');
+              btn.innerHTML = originalHTML;
+            }, 2000);
+          }, 300);
+        });
+      }
+    });
+  });
+</script>
