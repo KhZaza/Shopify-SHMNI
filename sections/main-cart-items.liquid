@@ -5,6 +5,47 @@
 {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
 {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
 
+<style>
+  /* ── Premium Cart Items Styling ── */
+  .cart-item__image-container { border-radius: 8px; overflow: hidden; }
+  .cart-item__image { border-radius: 8px; }
+  .cart-item__name {
+    font-size: 15px !important;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+  .cart-item__details .product-option {
+    font-size: 13px;
+    color: #777;
+  }
+  .title--primary {
+    font-size: 28px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+  }
+  .cart-items thead th {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 11px;
+    color: #999;
+  }
+  @media screen and (min-width: 750px) {
+    .cart-item__media { width: 120px !important; }
+    .cart-item__image { width: 120px !important; }
+  }
+
+  /* ── Dark Mode Cart Items ── */
+  html.theme-dark .cart-items { border-color: rgba(255,255,255,0.1) !important; }
+  html.theme-dark .cart-item { border-color: rgba(255,255,255,0.08) !important; }
+  html.theme-dark .cart-item__name { color: #fff !important; }
+  html.theme-dark .cart-item__details .product-option { color: #aaa; }
+  html.theme-dark .cart-items thead th { color: #666; }
+  html.theme-dark .quantity__input { color: #fff !important; background: #1a1a1a !important; border-color: rgba(255,255,255,0.15) !important; }
+  html.theme-dark .quantity__button { color: #fff !important; }
+  html.theme-dark .cart__empty-text { color: #fff; }
+</style>
+
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
