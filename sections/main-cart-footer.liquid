@@ -36,19 +36,20 @@
   .cart-shipping-bar__text strong { color: #121212; }
   .cart-shipping-bar__track {
     width: 100%;
-    height: 6px;
+    height: 8px;
     background: #e0e0e0;
-    border-radius: 6px;
+    border-radius: 8px;
     overflow: hidden;
   }
   .cart-shipping-bar__fill {
     height: 100%;
-    background: linear-gradient(90deg, #d4af37, #e8c84a);
-    border-radius: 6px;
+    background: linear-gradient(90deg, #4caf50, #66bb6a);
+    border-radius: 8px;
     transition: width 0.6s ease;
+    min-width: 0;
   }
   .cart-shipping-bar--qualified .cart-shipping-bar__text { color: #2e7d32; }
-  .cart-shipping-bar--qualified .cart-shipping-bar__fill { background: linear-gradient(90deg, #4caf50, #66bb6a); }
+  .cart-shipping-bar--qualified .cart-shipping-bar__fill { background: linear-gradient(90deg, #2e7d32, #4caf50); }
 
   /* ── Estimated Delivery ── */
   .cart-estimated-delivery {
@@ -147,54 +148,6 @@
         </cart-note>
       {%- endif -%}
 
-      {%- comment -%} ── FREE SHIPPING PROGRESS BAR ── {%- endcomment -%}
-      {%- assign free_shipping_threshold = 9000 -%}
-      {%- assign cart_total = cart.total_price -%}
-      {%- assign remaining_cents = free_shipping_threshold | minus: cart_total -%}
-      {%- if remaining_cents < 0 -%}{%- assign remaining_cents = 0 -%}{%- endif -%}
-      {%- assign progress_pct = cart_total | times: 100 | divided_by: free_shipping_threshold -%}
-      {%- if progress_pct > 100 -%}{%- assign progress_pct = 100 -%}{%- endif -%}
-
-      <div class="cart-shipping-bar{% if remaining_cents == 0 %} cart-shipping-bar--qualified{% endif %}">
-        {%- if remaining_cents == 0 -%}
-          <div class="cart-shipping-bar__text">
-            🎉 <strong>Congratulations!</strong> You've unlocked <strong>FREE SHIPPING</strong>
-          </div>
-        {%- else -%}
-          <div class="cart-shipping-bar__text">
-            You're <strong>{{ remaining_cents | money }}</strong> away from <strong>FREE SHIPPING</strong>
-          </div>
-        {%- endif -%}
-        <div class="cart-shipping-bar__track">
-          <div class="cart-shipping-bar__fill" style="width: {{ progress_pct }}%;"></div>
-        </div>
-      </div>
-
-      {%- comment -%} ── ESTIMATED DELIVERY ── {%- endcomment -%}
-      <div class="cart-estimated-delivery">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="1" y="3" width="15" height="13" rx="2" ry="2"></rect>
-          <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-          <circle cx="5.5" cy="18.5" r="2.5"></circle>
-          <circle cx="18.5" cy="18.5" r="2.5"></circle>
-        </svg>
-        <div class="cart-estimated-delivery__text">
-          <strong>Estimated Delivery:</strong>
-          <span id="cart-delivery-estimate"></span>
-        </div>
-      </div>
-      <script>
-        (function() {
-          var el = document.getElementById('cart-delivery-estimate');
-          if (!el) return;
-          var today = new Date();
-          var minDate = new Date(today); minDate.setDate(minDate.getDate() + 5);
-          var maxDate = new Date(today); maxDate.setDate(maxDate.getDate() + 10);
-          var opts = { month: 'short', day: 'numeric' };
-          el.textContent = minDate.toLocaleDateString('en-US', opts) + ' – ' + maxDate.toLocaleDateString('en-US', opts);
-        })();
-      </script>
-
       <div class="cart__blocks">
         {% for block in section.blocks %}
           {%- case block.type -%}
@@ -202,6 +155,59 @@
               {% render block %}
             {%- when 'subtotal' -%}
               <div class="js-contents" {{ block.shopify_attributes }}>
+
+                {%- comment -%} ── FREE SHIPPING PROGRESS BAR ── {%- endcomment -%}
+                {%- assign free_shipping_threshold = 9000 -%}
+                {%- assign cart_total = cart.total_price -%}
+                {%- assign remaining = free_shipping_threshold | minus: cart_total -%}
+                {%- if remaining < 0 -%}{%- assign remaining = 0 -%}{%- endif -%}
+                {%- assign progress = cart_total | times: 100 | divided_by: free_shipping_threshold -%}
+                {%- if progress > 100 -%}{%- assign progress = 100 -%}{%- endif -%}
+
+                <div class="cart-shipping-bar{% if remaining == 0 %} cart-shipping-bar--qualified{% endif %}">
+                  {%- if remaining == 0 -%}
+                    <div class="cart-shipping-bar__text">
+                      🎉 <strong>Congratulations!</strong> You've unlocked <strong>FREE SHIPPING</strong>
+                    </div>
+                  {%- else -%}
+                    <div class="cart-shipping-bar__text">
+                      You're <strong>{{ remaining | money }}</strong> away from <strong>FREE SHIPPING</strong>
+                    </div>
+                  {%- endif -%}
+                  <div class="cart-shipping-bar__track">
+                    <div class="cart-shipping-bar__fill" style="width: {{ progress }}%;"></div>
+                  </div>
+                </div>
+
+                {%- comment -%} ── ESTIMATED DELIVERY ── {%- endcomment -%}
+                <div class="cart-estimated-delivery">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="1" y="3" width="15" height="13" rx="2" ry="2"></rect>
+                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                  </svg>
+                  <div class="cart-estimated-delivery__text">
+                    <strong>Estimated Delivery:</strong>
+                    <span id="cart-delivery-estimate"></span>
+                  </div>
+                </div>
+                <script>
+                  (function() {
+                    const el = document.getElementById('cart-delivery-estimate');
+                    if (!el) return;
+                    const today = new Date();
+                    const minDays = 5;
+                    const maxDays = 10;
+                    const minDate = new Date(today);
+                    minDate.setDate(minDate.getDate() + minDays);
+                    const maxDate = new Date(today);
+                    maxDate.setDate(maxDate.getDate() + maxDays);
+                    const opts = { month: 'short', day: 'numeric' };
+                    el.textContent = minDate.toLocaleDateString('en-US', opts) + ' – ' + maxDate.toLocaleDateString('en-US', opts);
+                  })();
+                </script>
+
                 <div>
                   {%- if cart.cart_level_discount_applications.size > 0 -%}
                     <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
