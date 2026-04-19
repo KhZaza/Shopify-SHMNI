@@ -28,14 +28,22 @@
     {%- endif -%}
     {%- if section.blocks.size == 1 -%}
       <style>
+        .marquee-spacer {
+          height: 38px;
+          display: flex;
+          align-items: center;
+        }
         .marquee-container {
+          position: absolute;
+          left: 0;
+          right: 0;
+          width: 100%;
           overflow: hidden;
           white-space: nowrap;
           display: flex;
           align-items: center;
           padding: 10px 0;
-          width: 100vw;
-          margin-left: calc(-50vw + 50%);
+          background: inherit;
         }
         .marquee-content {
           display: inline-block;
@@ -56,7 +64,7 @@
           100% { transform: translateX(-50%); }
         }
       </style>
-      <div class="announcement-bar" role="region" aria-label="{{ 'sections.header.announcement' | t }}" {{ block.shopify_attributes }}>
+      <div class="announcement-bar marquee-spacer" role="region" aria-label="{{ 'sections.header.announcement' | t }}" {{ block.shopify_attributes }}>
         {%- if section.blocks.first.settings.text != blank -%}
           {%- if section.blocks.first.settings.link != blank -%}
             <a href="{{ section.blocks.first.settings.link }}" class="announcement-bar__link link link--text focus-inset animate-arrow" style="text-decoration:none;">
