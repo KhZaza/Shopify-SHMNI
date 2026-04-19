@@ -1,0 +1,199 @@
+<style>
+  .discovery-builder {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+  .discovery-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .discovery-progress {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #121212;
+  }
+  .scent-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+  }
+  .scent-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .scent-card.selected {
+    border-color: #121212;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  .scent-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: #f4f4f4;
+  }
+  .scent-title {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .scent-notes {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+  }
+</style>
+
+<div class="discovery-builder">
+  <div class="discovery-header">
+    <h2>{{ section.settings.title }}</h2>
+    <p>{{ section.settings.subtitle }}</p>
+    <div class="discovery-progress">
+      Selected: <span id="ds-count">0</span> / 3
+    </div>
+  </div>
+
+  <div class="scent-grid" id="ds-grid">
+    {% for block in section.blocks %}
+      <div class="scent-card" data-title="{{ block.settings.title | escape }}">
+        {% if block.settings.image != blank %}
+          <img src="{{ block.settings.image | image_url: width: 300 }}" class="scent-image" loading="lazy">
+        {% else %}
+          <div class="scent-image" style="display:flex; align-items:center; justify-content:center; font-size:24px; color:#ccc;">+</div>
+        {% endif %}
+        <div class="scent-title">{{ block.settings.title }}</div>
+        <div class="scent-notes">{{ block.settings.notes }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var maxSelection = 3;
+    var selectedScents = [];
+    var countDisplay = document.getElementById('ds-count');
+    var cards = document.querySelectorAll('.scent-card');
+    
+    // Find main Add to Cart button and form
+    var mainForm = document.querySelector('product-form form');
+    var mainSubmitButton = document.querySelector('.product-form__submit');
+    
+    // Initially disable add to cart
+    if (mainSubmitButton) {
+      mainSubmitButton.disabled = true;
+      mainSubmitButton.innerText = 'Select 3 Scents';
+    }
+
+    cards.forEach(function(card) {
+      card.addEventListener('click', function() {
+        var title = this.getAttribute('data-title');
+        var index = selectedScents.indexOf(title);
+        
+        if (index > -1) {
+          // Deselect
+          selectedScents.splice(index, 1);
+          this.classList.remove('selected');
+        } else {
+          // Select if under limit
+          if (selectedScents.length < maxSelection) {
+            selectedScents.push(title);
+            this.classList.add('selected');
+          } else {
+            alert('You can only select ' + maxSelection + ' scents.');
+          }
+        }
+        
+        // Update UI
+        countDisplay.innerText = selectedScents.length;
+        
+        // Update Add to Cart Button
+        if (mainSubmitButton) {
+          if (selectedScents.length === maxSelection) {
+            mainSubmitButton.disabled = false;
+            mainSubmitButton.innerText = 'Add Discovery Set to Cart';
+            
+            // Remove old hidden inputs
+            mainForm.querySelectorAll('.ds-input').forEach(e => e.remove());
+            
+            // Add new hidden inputs for line item properties
+            selectedScents.forEach(function(scent, idx) {
+              var input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = 'properties[Scent ' + (idx + 1) + ']';
+              input.value = scent;
+              input.className = 'ds-input';
+              mainForm.appendChild(input);
+            });
+            
+          } else {
+            mainSubmitButton.disabled = true;
+            mainSubmitButton.innerText = 'Select ' + (maxSelection - selectedScents.length) + ' more scents';
+          }
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Discovery Set Builder",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Build Your Discovery Set"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Select 3 sample sizes to try before committing to a full bottle."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "scent",
+      "name": "Scent",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Scent Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Scent Name",
+          "default": "Signature Scent"
+        },
+        {
+          "type": "text",
+          "id": "notes",
+          "label": "Key Notes",
+          "default": "Rose, Vanilla, Amber"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Discovery Set Builder",
+      "blocks": [
+        { "type": "scent" },
+        { "type": "scent" },
+        { "type": "scent" }
+      ]
+    }
+  ]
+}
+{% endschema %}
