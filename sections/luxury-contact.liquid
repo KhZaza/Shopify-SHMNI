@@ -1,0 +1,387 @@
+<style>
+  /* ── Luxury Contact Page ── */
+  .luxury-contact {
+    padding: 80px 0;
+    background: #fafafa;
+  }
+  .luxury-contact-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  @media (max-width: 768px) {
+    .luxury-contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .luxury-contact { padding: 50px 0; }
+  }
+
+  /* Left column - Info */
+  .luxury-contact-info { padding-top: 10px; }
+  .luxury-contact-info h1 {
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin: 0 0 12px 0;
+    color: #121212;
+  }
+  .luxury-contact-info .luxury-contact-subtitle {
+    font-size: 15px;
+    color: #888;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    max-width: 380px;
+  }
+  .luxury-contact-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .luxury-contact-detail svg {
+    width: 22px;
+    height: 22px;
+    color: #121212;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .luxury-contact-detail-text h3 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #999;
+    margin: 0 0 4px 0;
+    font-weight: 600;
+  }
+  .luxury-contact-detail-text p {
+    font-size: 15px;
+    color: #333;
+    margin: 0;
+    line-height: 1.5;
+  }
+  .luxury-contact-detail-text a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .luxury-contact-detail-text a:hover { color: #000; text-decoration: underline; }
+
+  .luxury-contact-social {
+    display: flex;
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .luxury-contact-social a {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    transition: all 0.3s ease;
+  }
+  .luxury-contact-social a:hover {
+    background: #121212;
+    border-color: #121212;
+    color: #fff;
+    transform: translateY(-2px);
+  }
+  .luxury-contact-social a svg { width: 18px; height: 18px; }
+
+  /* Right column - Form */
+  .luxury-contact-form-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 44px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+  .luxury-contact-form-card h2 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0 0 6px 0;
+    color: #121212;
+  }
+  .luxury-contact-form-card .form-subtitle {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 30px;
+  }
+  .luxury-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 500px) { .luxury-form-row { grid-template-columns: 1fr; } }
+  .luxury-form-group { position: relative; }
+  .luxury-form-group label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #999;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .luxury-form-group input,
+  .luxury-form-group textarea,
+  .luxury-form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    background: #fafafa;
+    transition: all 0.2s ease;
+    outline: none;
+    font-family: inherit;
+    box-sizing: border-box;
+  }
+  .luxury-form-group input:focus,
+  .luxury-form-group textarea:focus,
+  .luxury-form-group select:focus {
+    border-color: #121212;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(18, 18, 18, 0.06);
+  }
+  .luxury-form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+  .luxury-form-group.full-width { margin-bottom: 16px; }
+
+  .luxury-contact-submit {
+    width: 100%;
+    padding: 15px;
+    background: #121212;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .luxury-contact-submit:hover {
+    background: #333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+  .luxury-contact-submit:active {
+    transform: translateY(0) scale(0.99);
+  }
+
+  /* Success message */
+  .luxury-form-success {
+    text-align: center;
+    padding: 30px 20px;
+  }
+  .luxury-form-success svg {
+    width: 48px;
+    height: 48px;
+    color: #2e7d32;
+    margin-bottom: 16px;
+  }
+  .luxury-form-success h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: #121212;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .luxury-form-success p {
+    font-size: 14px;
+    color: #888;
+    margin: 0;
+  }
+
+  /* ── Dark Mode ── */
+  html.theme-dark .luxury-contact { background: #0a0a0a; }
+  html.theme-dark .luxury-contact-info h1 { color: #fff; }
+  html.theme-dark .luxury-contact-info .luxury-contact-subtitle { color: #777; }
+  html.theme-dark .luxury-contact-detail svg { color: #fff; }
+  html.theme-dark .luxury-contact-detail-text p,
+  html.theme-dark .luxury-contact-detail-text a { color: #ccc; }
+  html.theme-dark .luxury-contact-detail-text a:hover { color: #fff; }
+  html.theme-dark .luxury-contact-social a { border-color: #333; color: #aaa; }
+  html.theme-dark .luxury-contact-social a:hover { background: #fff; border-color: #fff; color: #000; }
+  html.theme-dark .luxury-contact-form-card {
+    background: #1a1a1a;
+    border-color: rgba(255,255,255,0.08);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  }
+  html.theme-dark .luxury-contact-form-card h2 { color: #fff; }
+  html.theme-dark .luxury-contact-form-card .form-subtitle { color: #666; }
+  html.theme-dark .luxury-form-group label { color: #666; }
+  html.theme-dark .luxury-form-group input,
+  html.theme-dark .luxury-form-group textarea,
+  html.theme-dark .luxury-form-group select {
+    background: #111;
+    border-color: #333;
+    color: #eee;
+  }
+  html.theme-dark .luxury-form-group input:focus,
+  html.theme-dark .luxury-form-group textarea:focus,
+  html.theme-dark .luxury-form-group select:focus {
+    border-color: #fff;
+    background: #1a1a1a;
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.06);
+  }
+  html.theme-dark .luxury-contact-submit { background: #fff; color: #000; }
+  html.theme-dark .luxury-contact-submit:hover { background: #e0e0e0; }
+  html.theme-dark .luxury-form-success h3 { color: #fff; }
+</style>
+
+<section class="luxury-contact">
+  <div class="luxury-contact-inner">
+
+    <!-- Left: Info Column -->
+    <div class="luxury-contact-info">
+      <h1>Get In Touch</h1>
+      <p class="luxury-contact-subtitle">
+        We'd love to hear from you. Whether you have a question about our fragrances, need help choosing your signature scent, or anything else — our team is here to help.
+      </p>
+
+      <div class="luxury-contact-detail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <div class="luxury-contact-detail-text">
+          <h3>Email</h3>
+          <p><a href="mailto:support@shmni.com">support@shmni.com</a></p>
+        </div>
+      </div>
+
+      <div class="luxury-contact-detail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <div class="luxury-contact-detail-text">
+          <h3>Response Time</h3>
+          <p>We typically respond within 24 hours</p>
+        </div>
+      </div>
+
+      <div class="luxury-contact-detail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        <div class="luxury-contact-detail-text">
+          <h3>Location</h3>
+          <p>United States</p>
+        </div>
+      </div>
+
+      <!-- Social Links -->
+      <div class="luxury-contact-social">
+        <a href="https://www.instagram.com/shmni.co/" target="_blank" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="https://www.tiktok.com/@shmni.co" target="_blank" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.88-2.88 2.89 2.89 0 012.88-2.88c.28 0 .56.04.82.12v-3.5a6.37 6.37 0 00-.82-.05A6.34 6.34 0 003.15 15.4a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.17a8.16 8.16 0 004.76 1.53v-3.5a4.83 4.83 0 01-1-.51z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Form Card -->
+    <div class="luxury-contact-form-card">
+      <h2>Send a Message</h2>
+      <p class="form-subtitle">All fields marked with * are required</p>
+
+      {%- form 'contact', id: 'LuxuryContactForm' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="luxury-form-success">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <h3>Message Sent</h3>
+            <p>Thank you for reaching out. We'll get back to you shortly.</p>
+          </div>
+        {%- else -%}
+          {%- if form.errors -%}
+            <div style="background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;padding:12px 16px;margin-bottom:20px;font-size:13px;color:#991b1b;">
+              {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+            </div>
+          {%- endif -%}
+
+          <div class="luxury-form-row">
+            <div class="luxury-form-group">
+              <label for="LuxuryContact-name">Your Name</label>
+              <input
+                type="text"
+                id="LuxuryContact-name"
+                name="contact[{{ 'templates.contact.form.name' | t }}]"
+                value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                placeholder="John Doe"
+              >
+            </div>
+            <div class="luxury-form-group">
+              <label for="LuxuryContact-email">Email *</label>
+              <input
+                type="email"
+                id="LuxuryContact-email"
+                name="contact[email]"
+                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                placeholder="you@example.com"
+                required
+                autocomplete="email"
+              >
+            </div>
+          </div>
+
+          <div class="luxury-form-row">
+            <div class="luxury-form-group">
+              <label for="LuxuryContact-phone">Phone</label>
+              <input
+                type="tel"
+                id="LuxuryContact-phone"
+                name="contact[{{ 'templates.contact.form.phone' | t }}]"
+                value="{% if form.phone %}{{ form.phone }}{% endif %}"
+                placeholder="+1 (555) 000-0000"
+              >
+            </div>
+            <div class="luxury-form-group">
+              <label for="LuxuryContact-subject">Subject</label>
+              <select id="LuxuryContact-subject" name="contact[Subject]">
+                <option value="General Inquiry">General Inquiry</option>
+                <option value="Order Support">Order Support</option>
+                <option value="Fragrance Advice">Fragrance Advice</option>
+                <option value="Returns & Exchanges">Returns & Exchanges</option>
+                <option value="Wholesale / Partnership">Wholesale / Partnership</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="luxury-form-group full-width">
+            <label for="LuxuryContact-message">Message *</label>
+            <textarea
+              id="LuxuryContact-message"
+              name="contact[{{ 'templates.contact.form.comment' | t }}]"
+              placeholder="Tell us how we can help..."
+              required
+            >{{ form.body }}</textarea>
+          </div>
+
+          <button type="submit" class="luxury-contact-submit">Send Message</button>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Luxury Contact",
+  "tag": "section",
+  "class": "section",
+  "settings": []
+}
+{% endschema %}
