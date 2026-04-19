@@ -147,6 +147,54 @@
         </cart-note>
       {%- endif -%}
 
+      {%- comment -%} ── FREE SHIPPING PROGRESS BAR ── {%- endcomment -%}
+      {%- assign free_shipping_threshold = 9000 -%}
+      {%- assign cart_total = cart.total_price -%}
+      {%- assign remaining_cents = free_shipping_threshold | minus: cart_total -%}
+      {%- if remaining_cents < 0 -%}{%- assign remaining_cents = 0 -%}{%- endif -%}
+      {%- assign progress_pct = cart_total | times: 100 | divided_by: free_shipping_threshold -%}
+      {%- if progress_pct > 100 -%}{%- assign progress_pct = 100 -%}{%- endif -%}
+
+      <div class="cart-shipping-bar{% if remaining_cents == 0 %} cart-shipping-bar--qualified{% endif %}">
+        {%- if remaining_cents == 0 -%}
+          <div class="cart-shipping-bar__text">
+            🎉 <strong>Congratulations!</strong> You've unlocked <strong>FREE SHIPPING</strong>
+          </div>
+        {%- else -%}
+          <div class="cart-shipping-bar__text">
+            You're <strong>{{ remaining_cents | money }}</strong> away from <strong>FREE SHIPPING</strong>
+          </div>
+        {%- endif -%}
+        <div class="cart-shipping-bar__track">
+          <div class="cart-shipping-bar__fill" style="width: {{ progress_pct }}%;"></div>
+        </div>
+      </div>
+
+      {%- comment -%} ── ESTIMATED DELIVERY ── {%- endcomment -%}
+      <div class="cart-estimated-delivery">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="1" y="3" width="15" height="13" rx="2" ry="2"></rect>
+          <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+          <circle cx="5.5" cy="18.5" r="2.5"></circle>
+          <circle cx="18.5" cy="18.5" r="2.5"></circle>
+        </svg>
+        <div class="cart-estimated-delivery__text">
+          <strong>Estimated Delivery:</strong>
+          <span id="cart-delivery-estimate"></span>
+        </div>
+      </div>
+      <script>
+        (function() {
+          var el = document.getElementById('cart-delivery-estimate');
+          if (!el) return;
+          var today = new Date();
+          var minDate = new Date(today); minDate.setDate(minDate.getDate() + 5);
+          var maxDate = new Date(today); maxDate.setDate(maxDate.getDate() + 10);
+          var opts = { month: 'short', day: 'numeric' };
+          el.textContent = minDate.toLocaleDateString('en-US', opts) + ' – ' + maxDate.toLocaleDateString('en-US', opts);
+        })();
+      </script>
+
       <div class="cart__blocks">
         {% for block in section.blocks %}
           {%- case block.type -%}
@@ -154,76 +202,6 @@
               {% render block %}
             {%- when 'subtotal' -%}
               <div class="js-contents" {{ block.shopify_attributes }}>
-
-                {%- comment -%} ── FREE SHIPPING PROGRESS BAR (JS-Driven) ── {%- endcomment -%}
-                <div class="cart-shipping-bar" id="cart-shipping-bar">
-                  <div class="cart-shipping-bar__text" id="cart-shipping-text"></div>
-                  <div class="cart-shipping-bar__track">
-                    <div class="cart-shipping-bar__fill" id="cart-shipping-fill" style="width: 0%;"></div>
-                  </div>
-                </div>
-                <script>
-                  (function() {
-                    function updateShippingBar() {
-                      fetch('/cart.js')
-                        .then(r => r.json())
-                        .then(cart => {
-                          const threshold = 9000;
-                          const total = cart.total_price;
-                          const remaining = Math.max(threshold - total, 0);
-                          const progress = Math.min((total / threshold) * 100, 100);
-                          const bar = document.getElementById('cart-shipping-bar');
-                          const text = document.getElementById('cart-shipping-text');
-                          const fill = document.getElementById('cart-shipping-fill');
-                          if (!bar || !text || !fill) return;
-                          fill.style.width = progress + '%';
-                          if (remaining === 0) {
-                            bar.classList.add('cart-shipping-bar--qualified');
-                            text.innerHTML = '🎉 <strong>Congratulations!</strong> You\'ve unlocked <strong>FREE SHIPPING</strong>';
-                          } else {
-                            bar.classList.remove('cart-shipping-bar--qualified');
-                            const dollars = (remaining / 100).toFixed(2);
-                            text.innerHTML = 'You\'re <strong>$' + dollars + '</strong> away from <strong>FREE SHIPPING</strong>';
-                          }
-                        });
-                    }
-                    updateShippingBar();
-                    // Re-check whenever the page regains focus (e.g. after adding items via notification)
-                    document.addEventListener('visibilitychange', function() {
-                      if (!document.hidden) updateShippingBar();
-                    });
-                  })();
-                </script>
-
-                {%- comment -%} ── ESTIMATED DELIVERY ── {%- endcomment -%}
-                <div class="cart-estimated-delivery">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="1" y="3" width="15" height="13" rx="2" ry="2"></rect>
-                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
-                  </svg>
-                  <div class="cart-estimated-delivery__text">
-                    <strong>Estimated Delivery:</strong>
-                    <span id="cart-delivery-estimate"></span>
-                  </div>
-                </div>
-                <script>
-                  (function() {
-                    const el = document.getElementById('cart-delivery-estimate');
-                    if (!el) return;
-                    const today = new Date();
-                    const minDays = 5;
-                    const maxDays = 10;
-                    const minDate = new Date(today);
-                    minDate.setDate(minDate.getDate() + minDays);
-                    const maxDate = new Date(today);
-                    maxDate.setDate(maxDate.getDate() + maxDays);
-                    const opts = { month: 'short', day: 'numeric' };
-                    el.textContent = minDate.toLocaleDateString('en-US', opts) + ' – ' + maxDate.toLocaleDateString('en-US', opts);
-                  })();
-                </script>
-
                 <div>
                   {%- if cart.cart_level_discount_applications.size > 0 -%}
                     <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
