@@ -252,7 +252,12 @@
             btn.innerHTML = '<span class="btn-success-content"><svg class="btn-checkmark" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Added!</span>';
             setTimeout(function() {
               btn.classList.remove('btn-success');
+              btn.classList.remove('loading');
+              btn.removeAttribute('aria-disabled');
               btn.innerHTML = originalHTML;
+              // Also clear loading on the parent submit wrapper
+              var submitBtn = btn.closest('.product-form__buttons');
+              if (submitBtn) submitBtn.classList.remove('loading');
             }, 2000);
           }, 300);
         });
