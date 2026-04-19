@@ -837,6 +837,11 @@
   
   {% paginate collections['all'].products by 250 %}
     {% for p in collections['all'].products %}
+      {% assign handle_downcase = p.handle | downcase %}
+      {% if handle_downcase contains 'car-freshener' or handle_downcase contains 'car-diffuser' %}
+        {% continue %}
+      {% endif %}
+      
       liveProducts.push({
         handle: {{ p.handle | json }},
         title: {{ p.title | json }},
