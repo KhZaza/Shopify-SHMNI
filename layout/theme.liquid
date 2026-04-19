@@ -282,7 +282,49 @@
       if (Shopify.designMode) {
         document.documentElement.classList.add('shopify-design-mode');
       }
+      
+      // Dynamic Dark Mode Engine - Prevents flash of white
+      (function() {
+        if (localStorage.getItem('theme') === 'dark') {
+          document.documentElement.classList.add('theme-dark');
+        }
+      })();
     </script>
+    <style>
+      html.theme-dark body,
+      html.theme-dark .color-scheme-1,
+      html.theme-dark .color-scheme-2,
+      html.theme-dark .color-scheme-3,
+      html.theme-dark .color-scheme-4,
+      html.theme-dark .color-scheme-5,
+      html.theme-dark .header-wrapper,
+      html.theme-dark .utility-bar,
+      html.theme-dark .footer {
+        --color-background: 18, 18, 18 !important;
+        --gradient-background: #121212 !important;
+        --color-foreground: 255, 255, 255 !important;
+        --color-button: 255, 255, 255 !important;
+        --color-button-text: 18, 18, 18 !important;
+        --color-shadow: 255, 255, 255 !important;
+        --color-badge-background: 255, 255, 255 !important;
+        --color-badge-foreground: 18, 18, 18 !important;
+      }
+      html.theme-dark .color-scheme-2 {
+        --color-background: 30, 30, 30 !important;
+        --gradient-background: #1e1e1e !important;
+      }
+      html.theme-dark .header__heading-logo {
+        filter: invert(1);
+      }
+      html.theme-dark #DarkModeToggle .icon-moon { display: none !important; }
+      html.theme-dark #DarkModeToggle .icon-sun { display: block !important; }
+      html.theme-dark .scent-pyramid-container { background: transparent !important; }
+      html.theme-dark .scent-note-pill { background: #1a1a1a !important; color: #fff !important; border-color: rgba(255,255,255,0.2) !important; }
+      html.theme-dark .scent-note-pill:hover { background: #fff !important; color: #000 !important; }
+      html.theme-dark .product-guarantee-banner { background: #1a1a1a !important; border-color: rgba(255,255,255,0.1) !important; }
+      html.theme-dark .guarantee-text strong, html.theme-dark .guarantee-icon { color: #fff !important; }
+      html.theme-dark .guarantee-text p { color: #aaa !important; }
+    </style>
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
