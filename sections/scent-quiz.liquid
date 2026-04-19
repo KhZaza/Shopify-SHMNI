@@ -69,14 +69,11 @@
     margin-top: 40px;
   }
   .result-card {
-    display: none;
     text-align: left;
     border: 1px solid #e0e0e0;
     padding: 15px;
     border-radius: 8px;
-  }
-  .result-card.show {
-    display: block;
+    animation: fadeIn 0.5s ease;
   }
   .result-image {
     width: 100%;
@@ -158,43 +155,7 @@
     <p class="quiz-subtitle">Based on your answers, our AI-powered engine recommends these matches.</p>
     
     <div class="results-grid" id="quiz-results-container">
-      {% for block in section.blocks %}
-        {% assign prod = block.settings.product %}
-        {% if prod.title == blank %}
-          {% assign prod = all_products[block.settings.product] %}
-        {% endif %}
-        
-        {% if prod != blank and prod.title != blank %}
-          <div class="result-card" 
-               data-gender="{{ block.settings.gender }}" 
-               data-vibe="{{ block.settings.vibe }}" 
-               data-occasion="{{ block.settings.occasion }}">
-            <a href="{{ prod.url }}">
-              {% if prod.featured_image %}
-                <img src="{{ prod.featured_image | image_url: width: 400 }}" class="result-image" alt="{{ prod.title }}">
-              {% else %}
-                <div class="result-image" style="display:flex;align-items:center;justify-content:center;font-size:24px;">{{ prod.title | slice: 0 }}</div>
-              {% endif %}
-            </a>
-            <div class="result-title">{{ prod.title }}</div>
-            <div class="result-desc">{{ block.settings.short_desc | default: prod.price | money }}</div>
-            <a href="{{ prod.url }}" class="result-atc">View Product</a>
-          </div>
-        {% else %}
-          <!-- FALLBACK FOR BROKEN PRODUCT LINK -->
-          <div class="result-card" 
-               data-gender="{{ block.settings.gender }}" 
-               data-vibe="{{ block.settings.vibe }}" 
-               data-occasion="{{ block.settings.occasion }}">
-            <a href="/products/{{ block.settings.product }}">
-                <div class="result-image" style="display:flex;align-items:center;justify-content:center;background:#000;color:#fff;">SHMNI</div>
-            </a>
-            <div class="result-title">{{ block.settings.product | replace: '-', ' ' | capitalize }}</div>
-            <div class="result-desc">{{ block.settings.short_desc }}</div>
-            <a href="/products/{{ block.settings.product }}" class="result-atc">View Product</a>
-          </div>
-        {% endif %}
-      {% endfor %}
+      <!-- Injected by JS -->
     </div>
     
     <div id="no-results-msg" style="display:none; margin-top: 40px;">
@@ -207,6 +168,999 @@
 </div>
 
 <script>
+  var productDatabase = [
+  {
+    "title": "Inspired by ALFAREED",
+    "handle": "inspired-by-tilia-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_61136358-8858-46b1-abfb-d48208bff2e6.png?v=1772831520",
+    "short_desc": "Pink Pepper, Bergamot, Geranium",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by TILIA",
+    "handle": "inspired-by-blue-talisman-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_46ee4fd7-9057-4739-a061-b1749d038958.png?v=1772831175",
+    "short_desc": "Lime Linden Blossom, Jasmine Sambac, Broom",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by BLUE TALISMAN",
+    "handle": "inspired-by-nior-exreme-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_ccf51b48-1069-42b0-bb38-3ac7b2202da2.png?v=1772831022",
+    "short_desc": "Pear, Bergamot, Mandarin Orange, Ginger",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by NIOR EXREME",
+    "handle": "inspired-by-nior-exreme",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_54614be1-7a5e-4007-9cbd-f488365514be.png?v=1772830878",
+    "short_desc": "Cardamom, Nutmeg, Saffron, Mandarin Orange, Neroli",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by LOVERS",
+    "handle": "inspired-by-delina-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_e0312aee-6d7c-48bb-ba79-f287056d7903.png?v=1772830579",
+    "short_desc": "Galbanum, Bergamot",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by DELINA",
+    "handle": "inspired-by-guidance-46-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_38d04a2b-4daf-4cbd-9965-ca422b611d1b.png?v=1772830394",
+    "short_desc": "Litchi, Rhubarb, Bergamot, Nutmeg, Black Currant",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by GUIDANCE 46",
+    "handle": "inspired-by-guidance-46",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_15a8fe38-8f0d-4cd1-972f-c8187ddb5658.png?v=1772830122",
+    "short_desc": "Rose Water, Pear, Hazelnut, Bitter Almond, Frankincense, Pin",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by AZARAN",
+    "handle": "inspired-by-gentle-fluidity-silver-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_c4e0380f-0f1b-4219-8587-e559b05c6602.png?v=1772829757",
+    "short_desc": "Saffron, Bergamot",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by GENTLE FLUIDITY SILVER",
+    "handle": "inspired-by-eros-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_78db4a2e-97dc-499d-9bf4-6f52091aaa72.png?v=1772829586",
+    "short_desc": "Juniper Berries, Nutmeg, Bergamot, Pineapple",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by EROS",
+    "handle": "inspired-by-angels-share-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_b28825b6-be95-45fb-922f-51e40acf2740.png?v=1772829486",
+    "short_desc": "Mint, Green Apple, Lemon",
+    "gender": "unisex",
+    "vibe": "sweet",
+    "occasion": "date"
+  },
+  {
+    "title": "Inspired by ANGELS' SHARE",
+    "handle": "inspired-by-atomic-rose-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_c9ba2d91-fe63-449d-8d6d-37857166da37.png?v=1772827919",
+    "short_desc": "Cogna",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by ATOMIC ROSE",
+    "handle": "inspired-by-yum-boujee-marshmallow-81-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_963c7051-29bd-457f-abce-37eff7e43627.png?v=1772827742",
+    "short_desc": "Pink Pepper, Bergamot",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by YUM BOUJEE MARSHMALLOW | 81",
+    "handle": "inspired-by-arabians-tonka-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_de4cbcfe-8b74-4e98-bdeb-8888ea853478.png?v=1772826820",
+    "short_desc": "Freesia, Italian Lemon, Nectarine Blossom, Apple",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by ARABIANS TONKA",
+    "handle": "inspired-by-hypnotic-poison-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_fecb0cfd-2663-41f0-8a76-6a723f108709.png?v=1772826671",
+    "short_desc": "Saffron, Bergamot",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by HYPNOTIC POISON",
+    "handle": "inspired-by-bianco-latte-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_db904f1e-ece9-457b-828e-925a01a870a7.png?v=1772826293",
+    "short_desc": "Coconut, Plum, Apricot",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by BIANCO LATTE",
+    "handle": "inspired-by-eden-sparkling-lychee-39-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_a398a4f5-cd78-4eba-bb13-859075a34d13.png?v=1772790690",
+    "short_desc": "Caramel",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by EDEN SPARKLING LYCHEE | 39",
+    "handle": "inspired-by-starlight-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_4958dbc7-09ca-4506-a773-86724ec71230.png?v=1772789756",
+    "short_desc": "Litchi, Black Currant, Red Apple, Italian Lemon",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by STARLIGHT",
+    "handle": "inspired-by-le-beau-flower-edition-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_05aafda5-0272-4a8f-99e5-8dca3d86dae8.png?v=1772789312",
+    "short_desc": "Cardamom, Bergamot",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by LE BEAU FLOWER EDITION",
+    "handle": "inspired-by-le-beau-flower-edition",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_46aa6baf-34dd-45e8-879c-6d350c18c6b8.png?v=1772789018",
+    "short_desc": "Kumquat, Lemon",
+    "gender": "unisex",
+    "vibe": "sweet",
+    "occasion": "date"
+  },
+  {
+    "title": "Inspired by BLACK ORCHID",
+    "handle": "inspired-by-tobac-vanille-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_213dba89-c877-4261-a238-923a8a077879.png?v=1772788808",
+    "short_desc": "Truffle, Gardenia, Black Currant, YlangYlang, Jasmine, Berga",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by TOBAC VANILLE",
+    "handle": "inspired-by-tobac-vanille",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_479dae0e-df83-45ec-a51e-da57e98d93e3.png?v=1772788583",
+    "short_desc": "Tobco Leaf, Spicy Notes",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by ALTHAIR",
+    "handle": "inspired-by-california-dream-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_ff3c2c79-5dd9-4a1a-83f6-77fa507e0ff9.png?v=1772788318",
+    "short_desc": "Cinnamon, Orange Blossom, Cardamom, Bergamot",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by CALIFORNIA DREAM",
+    "handle": "inspired-by-matiere-noire-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_2c31a5d5-e3e1-4b19-babb-b0fd6dc378f2.png?v=1772788078",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by MATI\u00c8RE NOIRE",
+    "handle": "inspired-by-matiere-noire",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_36fa2e1c-c86f-4ef9-9089-6651095d54cf.png?v=1772787639",
+    "short_desc": "Blackcurrant Syrup, Watery Notes",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by SANTAL BLUSH",
+    "handle": "inspired-by-oud-vanilla-28-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_df921582-ec97-4ccf-8026-91ed60bb6015.png?v=1772786993",
+    "short_desc": "Spices, Cinnamon, Caraway, Fenugreek, Carrot Seeds",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by OUD VANILLA | 28",
+    "handle": "inspired-by-oud-vanilla-28",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_926e7b10-d887-45c7-bf12-3083e91e3c3d.png?v=1772786563",
+    "short_desc": "Vanilla Orchid, Jasmine",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by OUD MARACUJ\u00c1",
+    "handle": "inspired-by-oud-maracuja-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_9572bbe3-b80b-4977-af27-8757bdd20e29.png?v=1772782733",
+    "short_desc": "Passionfruit, Fruity Notes, Turkish Rose, Saffron",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by CANDY ROCK SUGAR | 42",
+    "handle": "inspired-by-le-beau-paradise-garden-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_6983918b-2db2-4a46-84c7-cd067283e213.png?v=1772782853",
+    "short_desc": "Vanilla, Pear, Marshmallow, Rum, Violet Leaves, YlangYlang",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by IMAGINATION",
+    "handle": "inspired-by-imagination-2",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_58864e24-1430-4717-8e78-42536f7f3131.png?v=1766258136",
+    "short_desc": "Citron, Calabrian bergamot, Sicilian Orange",
+    "gender": "men",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by LE BEAU PARADISE GARDEN",
+    "handle": "inspired-by-hero-edp-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_43e21076-a5f7-4282-9af1-d0d00386abd3.png?v=1772781749",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by HERO EDP",
+    "handle": "inspired-by-hero-edp",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_a96b0d36-ee2f-4dd7-a794-5c05b70334b0.png?v=1772781425",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "any",
+    "occasion": "everyday"
+  },
+  {
+    "title": "Inspired by GOD OF FIRE",
+    "handle": "inspired-by-god-of-fire",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_2e553912-32f5-4657-bccc-8ba4209e8871.png?v=1772780984",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by SYMPHONY",
+    "handle": "inspired-by-stellar-times-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_1a9a855a-5e74-4ac2-b4c0-b14d2f9b50d2.png?v=1771666082",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "fresh",
+    "occasion": "everyday"
+  },
+  {
+    "title": "Inspired by LA TULIPE",
+    "handle": "inspired-by-palatine-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_f980764c-1244-4d17-a922-e57b85876270.png?v=1745276581",
+    "short_desc": "Freesia, Cyclamen, Rhubrub",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by OUD ROSEWOOD",
+    "handle": "inspired-by-oud-rosewood",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_129d42ad-33a7-48d9-bc42-f37feb354799.png?v=1745276224",
+    "short_desc": "Raspberry, Quince",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by GRAND SOIR",
+    "handle": "inspired-by-grand-soir",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_b0814290-4150-4074-ae7c-2df39be14d07.png?v=1745275874",
+    "short_desc": "Spanish Labdanum, Orange",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by AMBRE NUIT ESPRIT DE PARFUM",
+    "handle": "inspired-by-ambre-nuit-esprit-de-parfum",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_d5807c04-b6b7-4cf2-9ab9-da52061d5548.png?v=1745275394",
+    "short_desc": "Cinnamon, Cardamom",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by HER ELIXIR DE PARFUM",
+    "handle": "inspired-by-her-elixir-de-parfum",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_f26d9717-8d4b-4de4-b918-e3bebce05fbc.png?v=1745273271",
+    "short_desc": "Strawberry, Blackberry",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by ELYSIUM",
+    "handle": "inspired-by-elysium",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_f52ed5fb-60ed-4a7d-89d6-036f560d516e.png?v=1745272550",
+    "short_desc": "Grapefruit, Lemon, Bergamot, Lime, Thyme, Artemisia, Galbanu",
+    "gender": "men",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by BLACK OPIUM OVER RED",
+    "handle": "inspired-by-black-opium-over-red",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_bc8e8ad5-ff55-4e15-8876-b252e07aa7c8.png?v=1745272071",
+    "short_desc": "Cherry, Green Mandarin",
+    "gender": "unisex",
+    "vibe": "sweet",
+    "occasion": "date"
+  },
+  {
+    "title": "Inspired by PALATINE",
+    "handle": "inspired-by-palatine",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_3506486a-333f-4d86-9359-d7dc58c3e671.png?v=1745271177",
+    "short_desc": "Pear, Bergamot, Mandarin",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by OUDGASM ROSE OUD | 16 EAU DE PARFUM INTENSE",
+    "handle": "inspired-by-oudgasm-rose-oud-16-eau-de-parfum-intense",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_12d57f0e-dd79-4c06-b4c2-e8c59f7eeec1.png?v=1745270298",
+    "short_desc": "Geranium, Lemon, Pear",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by GAULTIER DIVINE LE PARFUM",
+    "handle": "inspired-by-gaultier-divine-le-parfum",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_5b8b5a5a-0262-4d9c-9dcb-2c013977722e.png?v=1745268697",
+    "short_desc": "Solar Notes, Lily",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by Y EDP",
+    "handle": "inspired-by-y-edp",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_1d7672af-9181-4156-9f6d-1f4c14ad71aa.png?v=1745266971",
+    "short_desc": "Apple, Ginger, Bergamot",
+    "gender": "men",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by CABAN",
+    "handle": "inspired-by-caban",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_1c3b688a-b3a7-45f5-8673-5d1e0faa7b07.png?v=1745266526",
+    "short_desc": "elemi Pink Pepper Black Pepper",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by ALL OF ME INTENSE",
+    "handle": "inspired-by-all-of-me-intense",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_8a35bd8a-9501-4ae2-8267-14e0d194901e.png?v=1745264128",
+    "short_desc": "Black Iris, Jasmine Sambac",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by QUATTRO PIZZI",
+    "handle": "inspired-by-quattro-pizzi",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_304dc2ea-14bf-4b62-9830-f6663a76a228.png?v=1745266302",
+    "short_desc": "Davana, Rum, Pink Pepper, Coriander",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by GRAN BALLO",
+    "handle": "inspired-by-gran-ballo",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_2cd5dad9-884c-46e0-9cf2-163f8c51036c.png?v=1745262743",
+    "short_desc": "Red Berries, Tangerine",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by MAUI IN A BOTTLE SWEET BANANA | 37",
+    "handle": "inspired-by-maui-in-a-bottle-sweet-banana-37-eau-de-parfum",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_bf8167b8-4a3f-4f6b-9562-f128d4cd0fdc.png?v=1745130792",
+    "short_desc": "Banana, Pear",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by SEKUSHI NO. 7",
+    "handle": "inspired-by-sekushi-no-7",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_50cac5b9-9610-4188-9155-c3b6f668a362.png?v=1745130440",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "IYKYK 2",
+    "handle": "iykyk-2",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/3_52c879f7-9069-4217-9b43-54463e0b0a85.png?v=1744959962",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "SWEET MUSK",
+    "handle": "musk-x-berry-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_de1330e1-9b70-4e9f-b738-d7a0892d4f72.png?v=1744959120",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "MUSK X BERRY",
+    "handle": "musk-x-berry",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_07fe9e1c-b397-46cc-9517-e019301188cb.png?v=1744958761",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by ALEXANDRIA II",
+    "handle": "inspired-by-naxos-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_aabec252-465f-47d2-8ff6-323a8b2dfca1.png?v=1744958111",
+    "short_desc": "Palisander Rosewood, Lavender, Cinnamon, Apple",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by NAXOS",
+    "handle": "inspired-by-naxos",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_0d100cd7-9d15-46bd-a78d-ed253f651ca0.png?v=1744957706",
+    "short_desc": "Lavender, Bergamot, Lemon",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by CENTAURUS",
+    "handle": "inspired-by-centaurus",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_14bf2560-2d77-4199-a4af-10f68afc0334.png?v=1744957352",
+    "short_desc": "Cinnamon, Tobacco, Cardamom, Pink Pepper",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by DELPHONOS",
+    "handle": "inspired-by-delphonos",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_2d60e6cb-d79f-4ba2-9c06-1347c9cae8b6.png?v=1744956959",
+    "short_desc": "Almond, Incense, Pink Pepper, Black Pepper",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by ORNATE MOON",
+    "handle": "inspired-by-song-in-the-wind-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_d3f415c1-6988-4e06-be1b-bb31835eb028.png?v=1744956534",
+    "short_desc": "Incense, Rose",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by SONG IN THE WIND",
+    "handle": "inspired-by-crush-on-me-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_3dc4ef9a-01b4-42b2-a4ee-9507f35493d7.png?v=1744955992",
+    "short_desc": "Saffron, Raspberry, Bergamot",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by CRUSH ON ME",
+    "handle": "inspired-by-crush",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_10505d77-e948-4cc2-9559-89cc0f95e528.png?v=1744954031",
+    "short_desc": "Ginger, Lime",
+    "gender": "unisex",
+    "vibe": "sweet",
+    "occasion": "date"
+  },
+  {
+    "title": "CR\u00c8ME SILK Car Freshener",
+    "handle": "creme-silk-car-freshener",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_2d12b0e3-c5fe-4420-9ecc-35cc4cee9fee.png?v=1744952645",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "ZEST ESSENCE Car Freshener",
+    "handle": "zest-essence-car-freshener",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_90470f94-7cc3-4868-aff2-4e0d500d2f22.png?v=1744952261",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "OUD Car Freshener",
+    "handle": "oud-car-freshener",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_7274ae5a-62c5-4707-9a0d-a0603de7604e.png?v=1744952251",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "GOLDEN DUSK Car Freshener",
+    "handle": "golden-dusk-car-freshener",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_b2ca926f-923c-4b42-8642-7ea72c944eee.png?v=1744952215",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "ISLAND BLOOM Car Freshener",
+    "handle": "island-bloom-car-freshener",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_76502bd0-546e-4d13-9acf-0a875b9db77d.png?v=1744952222",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "540 Car Freshener",
+    "handle": "540-car-freshener",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_e229d3d3-30cb-4c7c-83dc-b471f6581edc.png?v=1744952227",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "OCEAN BREEZE Car Freshener",
+    "handle": "ocean-breeze-car-freshener",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_61bb2b72-f07a-4a70-b1e8-14e60c15791a.png?v=1744952232",
+    "short_desc": "and",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by AFTERNOON SWIM",
+    "handle": "inspired-by-afternoon-swim",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_f4c9c4e9-4e9b-4ee5-8d11-bbdc6a632cf4.png?v=1744181114",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by PACIFIC CHILL",
+    "handle": "inspired-by-pacific-chill",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_86094b6d-8da7-47ce-9e0b-c13f987d6662.png?v=1744180780",
+    "short_desc": "Citron, Mint, Orange, Lemon, Black Currant, Coriander",
+    "gender": "unisex",
+    "vibe": "floral",
+    "occasion": "any"
+  },
+  {
+    "title": "Inspired by VOICE OF THE SNAKE",
+    "handle": "inspired-by-voice-of-the-snake",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_03154d9f-3211-4167-9613-92b52ba08900.png?v=1744179936",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by MOLECULE 02",
+    "handle": "inspired-by-molecule-02",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_f7d6163d-939a-482d-a3e1-c3a8e9f6dcd7.png?v=1744179514",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "any",
+    "occasion": "everyday"
+  },
+  {
+    "title": "Inspired by PROMISE",
+    "handle": "inspired-by-no-5-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_452306b2-a5e5-459a-b6cc-af42759b0392.png?v=1744178997",
+    "short_desc": "Apple, Pink Pepper, Rosemary, Saffron, Cloves",
+    "gender": "unisex",
+    "vibe": "floral",
+    "occasion": "any"
+  },
+  {
+    "title": "Inspired by NO. 5",
+    "handle": "inspired-by-myslf-copy",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_274334cb-a41e-4fa1-90c0-12afd76fc206.png?v=1744178637",
+    "short_desc": "Spices,Exotic floral notes",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "IYKYK 1",
+    "handle": "iykyk-1",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/3_973a9fed-331d-451b-a5ab-17fea403757e.png?v=1744952286",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by OUD ISPAHAN",
+    "handle": "inspired-by-oud-ispahan",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1_d2d6f9f6-e0db-477c-95be-e6f837d4f08a.png?v=1744176869",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by S\u00ec Passione Intense (2024)",
+    "handle": "inspired-by-si-passione-intense-2024",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/1.png?v=1742176009",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by MYSLF",
+    "handle": "inspired-by-myslf",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_a80d9629-c6c9-4f52-bf57-1714b5ec86ab.png?v=1721990658",
+    "short_desc": "Calabrian bergamot, Bergamot",
+    "gender": "men",
+    "vibe": "floral",
+    "occasion": "any"
+  },
+  {
+    "title": "Inspired by SUPREME BOUQUET",
+    "handle": "inspired-by-supreme-bouquet",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_42db3fc8-e77b-4919-99a2-92a60d698867.png?v=1727302751",
+    "short_desc": "Fruity Notes, Pear, Pink Pepper",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by Born in Roma",
+    "handle": "inspired-by-born-in-roma",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_765d462f-bfb7-4dfb-8e3f-bd5f5f1791b3.png?v=1721987986",
+    "short_desc": "Mineral notes, Violet Leaf, Salt",
+    "gender": "men",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by VANILLA S*X",
+    "handle": "inspired-by-vanilla-s-x",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_5937e63c-b811-4e31-9928-b600968c452d.png?v=1721987431",
+    "short_desc": "Bitter Almond",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by OMBR\u00c9 LEATHER",
+    "handle": "inspired-by-ombre-leather",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_567ef317-c33a-4beb-9c92-6015dd8d2f2b.png?v=1721987081",
+    "short_desc": "Cardamom",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by INVICTUS VICTORY ELIXIR",
+    "handle": "inspired-by-invictus-victory-elixir",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_ae80681e-5215-4f47-a6f1-08f29dae8f52.png?v=1721986614",
+    "short_desc": "Lavender, Cardamom, Black Pepper",
+    "gender": "men",
+    "vibe": "sweet",
+    "occasion": "date"
+  },
+  {
+    "title": "Inspired by HACIVAT",
+    "handle": "inspired-by-hacivat",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_32323e36-c021-45d4-a2bc-49b57dd46347.png?v=1721986200",
+    "short_desc": "Pineapple, Grapefruit, Bergamot",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by ANI",
+    "handle": "inspired-by-ani",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_fc55427f-081e-406d-9f96-9797cb822ce2.png?v=1721985881",
+    "short_desc": "Ginger, Bergamot, Pink Pepper, Green Notes",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by BACCARAT ROUGE 540",
+    "handle": "inspired-by-baccarat-rouge-540",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_815fb012-6915-4bad-804f-53877b92b38b.png?v=1721982614",
+    "short_desc": "Saffron, Jasmine",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by STELLAR TIMES",
+    "handle": "inspired-by-stellar-times",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_2352418f-b462-40eb-94c4-35a6edc888fe.png?v=1721981780",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by OMBRE NOMADE",
+    "handle": "inspired-by-ombre-nomade",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_f8b639f1-284d-4a56-9ab2-4e074a87ff47.png?v=1721981291",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by BLACK PHANTOM",
+    "handle": "inspired-by-black-phantom",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_34bfc98c-c9d0-45ab-9570-f36b5eb884a9.png?v=1721980915",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by SMOKING HOT",
+    "handle": "inspired-by-smoking-hot",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_f2d71f9e-f9b6-4b10-95bd-6239acbe2623.png?v=1721980480",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by LE BEAU LE PARFUM",
+    "handle": "inspired-by-le-beau-le-parfum",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_9f05774a-5665-4795-aa2c-5c42c20c2c7f.png?v=1726265382",
+    "short_desc": "Pineapple, Iris, Ginger, Cypress",
+    "gender": "men",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by LE MALE ELIXIR",
+    "handle": "inspired-by-le-male-elixir",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_90e9e10f-9d8a-4262-a394-7752e53fa676.png?v=1721979698",
+    "short_desc": "",
+    "gender": "men",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by PSYCHEDELIC LOVE",
+    "handle": "inspired-by-psychedelic-love",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_7fb41882-891b-4bfd-b869-f05f8bcbcb77.png?v=1721979333",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by SIDE EFFECT",
+    "handle": "inspired-by-side-effect",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_f8652c92-d297-4e66-8da6-e1187941d57c.png?v=1721978751",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by SANTAL 33",
+    "handle": "inspired-by-santal-33",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_ec9ca84d-2d28-4b59-92e0-3ba4683b9d7a.png?v=1721775017",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by PURPLE OUD",
+    "handle": "purple-wood",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_3ff9246a-6954-4030-932b-f2692067159a.png?v=1721774567",
+    "short_desc": "Signature SHMNI Blend",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by SAUVAGE ELIXIR",
+    "handle": "inspired-by-sauvage-elixir",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_8445af6e-8910-4a91-9054-e9061eabad66.png?v=1721773934",
+    "short_desc": "Nutmeg, Cinnamon, Cardamom, Grapefruit",
+    "gender": "men",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by HOMME INTENSE",
+    "handle": "inspired-by-homme-intense",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_287704af-97d7-4b6f-81d6-898d1c316981.png?v=1721773495",
+    "short_desc": "",
+    "gender": "men",
+    "vibe": "floral",
+    "occasion": "any"
+  },
+  {
+    "title": "Inspired by PERCIVAL",
+    "handle": "inspired-by-percival",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_0dda228e-5833-40c2-a6b4-8d30845c1b7e.png?v=1721772085",
+    "short_desc": "Bergamot, Mandarin, Pink Pepper",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by SEDLEY",
+    "handle": "inspired-by-sedley",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_e47465a9-5261-4cdb-bfa8-30765b888174.png?v=1721771409",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by GREENLEY",
+    "handle": "inspired-by-greenley",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_3eb888bc-7e6e-462d-a05e-6bb400b53466.png?v=1721770485",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by PEGASUS",
+    "handle": "inspired-by-pegasus",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_313ef50f-5536-40bb-aa44-61ab6281dd1b.png?v=1721769875",
+    "short_desc": "",
+    "gender": "men",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by LAYTON",
+    "handle": "inspired-by-layton",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_bdae06b2-f323-409b-aeda-5df4cf420225.png?v=1721732786",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by ABSOLU AVENTUS",
+    "handle": "inspired-by-absolu-aventus",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_71262c16-5db2-4941-925e-739b028dbdf5.png?v=1721731951",
+    "short_desc": "",
+    "gender": "men",
+    "vibe": "fresh",
+    "occasion": "everyday"
+  },
+  {
+    "title": "Inspired by HIMALAYA",
+    "handle": "inspired-by-himalaya",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_132888f7-ab0d-416b-997f-2a54ad1a64e2.png?v=1721596290",
+    "short_desc": "",
+    "gender": "men",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by AVENTUS",
+    "handle": "inspired-by-aventus",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_0a62a977-d146-4b0c-9702-7e097d14fb09.png?v=1721595927",
+    "short_desc": "",
+    "gender": "men",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by ALLURE HOMME SPORT",
+    "handle": "inspired-by-allure-homme-sport",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_ab783a4d-d853-476e-9d48-ce03417f2142.png?v=1721595651",
+    "short_desc": "",
+    "gender": "men",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by BLEU DE Parfum",
+    "handle": "inspired-by-bleu-de-chanel-parfum",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_14309fec-9242-4ef2-956e-a98c172ac282.png?v=1721595375",
+    "short_desc": "",
+    "gender": "men",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by TYGAR",
+    "handle": "inspired-by-tygar",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_ce2e671d-928d-4968-83b7-a4006eb76114.png?v=1721594824",
+    "short_desc": "",
+    "gender": "men",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by Oud For Greatness",
+    "handle": "inspired-by-oud-for-greatness",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/2_979e18e5-923d-4f3c-909d-777cc8f30812.png?v=1721549385",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  },
+  {
+    "title": "Inspired by OUD SATIN MOOD",
+    "handle": "inspired-by-oud-satin-mood",
+    "image": "https://cdn.shopify.com/s/files/1/0709/0195/6832/files/3_93790bd6-f7f3-4f79-a523-367c7af880cc.png?v=1721546923",
+    "short_desc": "",
+    "gender": "unisex",
+    "vibe": "dark",
+    "occasion": "special"
+  }
+];
+
   var userAnswers = {
     gender: '',
     vibe: '',
@@ -232,37 +1186,46 @@
   function calculateResults() {
     nextStep('results');
     
-    var cards = document.querySelectorAll('.result-card');
-    var matchCount = 0;
+    var container = document.getElementById('quiz-results-container');
+    container.innerHTML = ''; // Clear old results
     
     var scoredCards = [];
     
-    cards.forEach(function(card) {
+    productDatabase.forEach(function(prod) {
       var score = 0;
-      var cGender = card.getAttribute('data-gender');
-      var cVibe = card.getAttribute('data-vibe');
-      var cOccasion = card.getAttribute('data-occasion');
       
-      if (cGender === userAnswers.gender || cGender === 'unisex' || userAnswers.gender === 'unisex') {
+      if (prod.gender === userAnswers.gender || prod.gender === 'unisex' || userAnswers.gender === 'unisex') {
         score += 2;
       }
-      if (cVibe === userAnswers.vibe || cVibe === 'any') {
+      if (prod.vibe === userAnswers.vibe || prod.vibe === 'any') {
         score += 3;
       }
-      if (cOccasion === userAnswers.occasion || cOccasion === 'any') {
+      if (prod.occasion === userAnswers.occasion || prod.occasion === 'any') {
         score += 1;
       }
       
-      scoredCards.push({ element: card, score: score });
+      scoredCards.push({ product: prod, score: score });
     });
     
     scoredCards.sort(function(a, b) { return b.score - a.score; });
     
     var revealLimit = Math.min(3, scoredCards.length);
+    var matchCount = 0;
     
     for (var i = 0; i < revealLimit; i++) {
       if (scoredCards[i].score > 0) {
-        scoredCards[i].element.classList.add('show');
+        var p = scoredCards[i].product;
+        var html = `
+          <div class="result-card">
+            <a href="/products/${p.handle}">
+              <img src="${p.image}" class="result-image" alt="${p.title}">
+            </a>
+            <div class="result-title">${p.title}</div>
+            <div class="result-desc">${p.short_desc}</div>
+            <a href="/products/${p.handle}" class="result-atc">View Product</a>
+          </div>
+        `;
+        container.innerHTML += html;
         matchCount++;
       }
     }
@@ -274,7 +1237,7 @@
   
   function resetQuiz() {
     userAnswers = { gender: '', vibe: '', occasion: '' };
-    document.querySelectorAll('.result-card').forEach(el => el.classList.remove('show'));
+    document.getElementById('quiz-results-container').innerHTML = '';
     document.getElementById('no-results-msg').style.display = 'none';
     nextStep(1);
   }
@@ -297,69 +1260,9 @@
       "default": "Take our 30-second AI-powered quiz to find your perfect match."
     }
   ],
-  "blocks": [
-    {
-      "type": "product_match",
-      "name": "Quiz Result Product",
-      "settings": [
-        {
-          "type": "product",
-          "id": "product",
-          "label": "Product"
-        },
-        {
-          "type": "text",
-          "id": "short_desc",
-          "label": "Short Description",
-          "info": "Brief summary of notes, e.g., 'Saffron, Jasmine, Amberwood'"
-        },
-        {
-          "type": "select",
-          "id": "gender",
-          "label": "Target Gender",
-          "options": [
-            { "value": "men", "label": "Men" },
-            { "value": "women", "label": "Women" },
-            { "value": "unisex", "label": "Unisex" }
-          ],
-          "default": "unisex"
-        },
-        {
-          "type": "select",
-          "id": "vibe",
-          "label": "Vibe Profile",
-          "options": [
-            { "value": "fresh", "label": "Fresh & Clean" },
-            { "value": "dark", "label": "Dark & Mysterious" },
-            { "value": "sweet", "label": "Sweet & Warm" },
-            { "value": "floral", "label": "Floral & Elegant" },
-            { "value": "any", "label": "Any / Versatile" }
-          ],
-          "default": "fresh"
-        },
-        {
-          "type": "select",
-          "id": "occasion",
-          "label": "Occasion",
-          "options": [
-            { "value": "everyday", "label": "Everyday / Office" },
-            { "value": "date", "label": "Date Night" },
-            { "value": "special", "label": "Special Occasions" },
-            { "value": "any", "label": "Any / All Occasions" }
-          ],
-          "default": "everyday"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
-      "name": "Scent Quiz",
-      "blocks": [
-        { "type": "product_match" },
-        { "type": "product_match" },
-        { "type": "product_match" }
-      ]
+      "name": "Scent Quiz"
     }
   ]
 }
