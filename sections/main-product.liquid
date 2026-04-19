@@ -197,9 +197,116 @@
                 </p>
               {%- when 'description' -%}
                 {%- if product.description != blank -%}
-                  <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
+                  <div id="ScentPyramid-{{ section.id }}" class="scent-pyramid-container" style="display: none;"></div>
+                  
+                  <style>
+                    .scent-pyramid-container {
+                      margin: 0 0 30px;
+                      background: transparent;
+                      padding: 10px 0;
+                    }
+                    .scent-tier {
+                      margin-bottom: 25px;
+                      text-align: left;
+                    }
+                    .scent-tier:last-child {
+                      margin-bottom: 0;
+                    }
+                    .scent-tier-title {
+                      font-size: 11px;
+                      text-transform: uppercase;
+                      letter-spacing: 0.15em;
+                      color: #666;
+                      margin-bottom: 12px;
+                      font-weight: 600;
+                    }
+                    .scent-notes {
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 10px;
+                    }
+                    .scent-note-pill {
+                      background: transparent;
+                      border: 1px solid #121212;
+                      color: #121212;
+                      padding: 8px 18px;
+                      border-radius: 40px;
+                      font-size: 13px;
+                      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                      cursor: default;
+                    }
+                    .scent-note-pill:hover {
+                      background: #121212;
+                      color: #fff;
+                      transform: translateY(-3px);
+                      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+                    }
+                  </style>
+
+                  <div class="product__description rte quick-add-hidden" id="ProductDescription-{{ section.id }}" {{ block.shopify_attributes }}>
                     {{ product.description }}
                   </div>
+
+                  <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                      const descContainer = document.getElementById('ProductDescription-{{ section.id }}');
+                      const pyramidContainer = document.getElementById('ScentPyramid-{{ section.id }}');
+                      if (!descContainer || !pyramidContainer) return;
+
+                      let topNotes = [];
+                      let middleNotes = [];
+                      let baseNotes = [];
+
+                      const paragraphs = descContainer.querySelectorAll('p, div');
+                      paragraphs.forEach(p => {
+                        const text = p.innerText.toUpperCase();
+                        let found = false;
+                        let raw = '';
+                        
+                        if (text.includes('TOP NOTES:')) {
+                           let parts = p.innerText.split(/:/);
+                           if(parts.length > 1) { raw = parts.slice(1).join(':'); topNotes = parseNotes(raw); found = true; }
+                        } else if (text.includes('MIDDLE NOTES:') || text.includes('HEART NOTES:')) {
+                           let parts = p.innerText.split(/:/);
+                           if(parts.length > 1) { raw = parts.slice(1).join(':'); middleNotes = parseNotes(raw); found = true; }
+                        } else if (text.includes('BASE NOTES:')) {
+                           let parts = p.innerText.split(/:/);
+                           if(parts.length > 1) { raw = parts.slice(1).join(':'); baseNotes = parseNotes(raw); found = true; }
+                        }
+                        
+                        if(found) {
+                          p.style.display = 'none';
+                        }
+                      });
+                      
+                      function parseNotes(rawStr) {
+                        return rawStr.split(',').map(n => n.trim().replace(/\.$/, '')).filter(n => n.length > 0);
+                      }
+
+                      if (topNotes.length || middleNotes.length || baseNotes.length) {
+                        let html = '';
+                        
+                        if (topNotes.length) {
+                          html += '<div class="scent-tier"><div class="scent-tier-title">Top Notes (The First Impression)</div><div class="scent-notes">';
+                          topNotes.forEach(note => html += `<div class="scent-note-pill">${note}</div>`);
+                          html += '</div></div>';
+                        }
+                        if (middleNotes.length) {
+                          html += '<div class="scent-tier"><div class="scent-tier-title">Heart Notes (The Core)</div><div class="scent-notes">';
+                          middleNotes.forEach(note => html += `<div class="scent-note-pill">${note}</div>`);
+                          html += '</div></div>';
+                        }
+                        if (baseNotes.length) {
+                          html += '<div class="scent-tier"><div class="scent-tier-title">Base Notes (The Lasting Trail)</div><div class="scent-notes">';
+                          baseNotes.forEach(note => html += `<div class="scent-note-pill">${note}</div>`);
+                          html += '</div></div>';
+                        }
+                        
+                        pyramidContainer.innerHTML = html;
+                        pyramidContainer.style.display = 'block';
+                      }
+                    });
+                  </script>
                 {%- endif -%}
               {%- when 'sku' -%}
                 <p
