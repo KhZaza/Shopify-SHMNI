@@ -241,25 +241,28 @@
         setTimeout(function() { ripple.remove(); }, 600);
       });
 
-      // Success animation after form submits
+      // Watch for Shopify to FINISH loading, then show success
       var form = btn.closest('form[data-type="add-to-cart-form"]');
       if (form) {
         form.addEventListener('submit', function() {
-          setTimeout(function() {
-            if (btn.disabled) return;
-            var originalHTML = btn.innerHTML;
-            btn.classList.add('btn-success');
-            btn.innerHTML = '<span class="btn-success-content"><svg class="btn-checkmark" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Added!</span>';
-            setTimeout(function() {
-              btn.classList.remove('btn-success');
-              btn.classList.remove('loading');
-              btn.removeAttribute('aria-disabled');
-              btn.innerHTML = originalHTML;
-              // Also clear loading on the parent submit wrapper
-              var submitBtn = btn.closest('.product-form__buttons');
-              if (submitBtn) submitBtn.classList.remove('loading');
-            }, 2000);
-          }, 300);
+          // Wait for Shopify's loading class to appear, then watch for it to be removed
+          var checkInterval = setInterval(function() {
+            // Once loading class is gone, Shopify is done — show our success state
+            if (!btn.classList.contains('loading')) {
+              clearInterval(checkInterval);
+              var spanEl = btn.querySelector('span');
+              if (!spanEl) return;
+              var originalText = spanEl.textContent;
+              btn.classList.add('btn-success');
+              spanEl.innerHTML = '<span class="btn-success-content"><svg class="btn-checkmark" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Added!</span>';
+              setTimeout(function() {
+                btn.classList.remove('btn-success');
+                spanEl.textContent = originalText;
+              }, 2000);
+            }
+          }, 100);
+          // Safety: clear interval after 10s no matter what
+          setTimeout(function() { clearInterval(checkInterval); }, 10000);
         });
       }
     });
