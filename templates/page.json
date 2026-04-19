@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
@@ -18,43 +19,6 @@
     },
     "scent_quiz_KKeUAc": {
       "type": "scent-quiz",
-      "blocks": {
-        "product_match_7Q9Rwb": {
-          "type": "product_match",
-          "settings": {
-            "product": "",
-            "short_desc": "",
-            "gender": "unisex",
-            "vibe": "fresh",
-            "occasion": "everyday"
-          }
-        },
-        "product_match_W3iD9F": {
-          "type": "product_match",
-          "settings": {
-            "product": "",
-            "short_desc": "",
-            "gender": "unisex",
-            "vibe": "fresh",
-            "occasion": "everyday"
-          }
-        },
-        "product_match_ndfWQB": {
-          "type": "product_match",
-          "settings": {
-            "product": "",
-            "short_desc": "",
-            "gender": "unisex",
-            "vibe": "fresh",
-            "occasion": "everyday"
-          }
-        }
-      },
-      "block_order": [
-        "product_match_7Q9Rwb",
-        "product_match_W3iD9F",
-        "product_match_ndfWQB"
-      ],
       "name": "Scent Quiz",
       "settings": {
         "heading": "Find Your Signature Scent",
