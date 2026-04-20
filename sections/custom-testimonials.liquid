@@ -31,16 +31,14 @@
   .marquee-track {
     display: inline-flex;
     gap: 24px;
-    /* Add padding to start and end for initial layout */
     padding: 0 12px;
-    animation: marquee-scroll 40s linear infinite;
+    will-change: transform;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
   }
-  .marquee-track:hover {
-    animation-play-state: paused;
-  }
-  @keyframes marquee-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-50% - 12px)); }
+  .marquee-track.is-dragging {
+    cursor: grabbing;
   }
   .custom-testimonial-card {
     flex: 0 0 300px;
@@ -195,6 +193,110 @@
     </div>
   </div>
 </div>
+
+<script>
+  (function() {
+    var slider = document.querySelector('.custom-testimonials-slider');
+    var track = document.querySelector('.marquee-track');
+    if (!track || !slider) return;
+
+    // Wait for layout to settle
+    requestAnimationFrame(function() {
+      var trackWidth = track.scrollWidth / 2; // half = one full set
+      var speed = 0.6; // px per frame — adjust for speed
+      var offset = 0;
+      var isDragging = false;
+      var dragStartX = 0;
+      var dragStartOffset = 0;
+      var velocity = 0;
+      var lastX = 0;
+      var animFrame;
+
+      function tick() {
+        if (!isDragging) {
+          offset += speed;
+          // Seamless loop: once we've scrolled one full set, reset
+          if (offset >= trackWidth) {
+            offset -= trackWidth;
+          }
+        }
+        track.style.transform = 'translateX(' + (-offset) + 'px)';
+        animFrame = requestAnimationFrame(tick);
+      }
+
+      tick();
+
+      // ── Mouse drag ──
+      track.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragStartOffset = offset;
+        lastX = e.clientX;
+        velocity = 0;
+        track.classList.add('is-dragging');
+        e.preventDefault();
+      });
+
+      window.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        velocity = lastX - e.clientX;
+        lastX = e.clientX;
+        var delta = dragStartX - e.clientX;
+        offset = dragStartOffset + delta;
+        // Keep offset within bounds for seamless loop
+        offset = ((offset % trackWidth) + trackWidth) % trackWidth;
+      });
+
+      window.addEventListener('mouseup', function() {
+        if (!isDragging) return;
+        isDragging = false;
+        track.classList.remove('is-dragging');
+        // Apply momentum: carry the drag velocity into auto-scroll
+        speed = Math.max(0.3, Math.min(Math.abs(velocity) * 0.5, 4)) * (velocity >= 0 ? 1 : -1);
+        // Gradually settle back to default speed
+        var settleInterval = setInterval(function() {
+          if (Math.abs(speed) <= 0.6) {
+            speed = 0.6;
+            clearInterval(settleInterval);
+          } else {
+            speed += (0.6 - speed) * 0.05;
+          }
+        }, 16);
+      });
+
+      // ── Touch drag ──
+      track.addEventListener('touchstart', function(e) {
+        isDragging = true;
+        dragStartX = e.touches[0].clientX;
+        dragStartOffset = offset;
+        lastX = e.touches[0].clientX;
+        velocity = 0;
+      }, { passive: true });
+
+      track.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        velocity = lastX - e.touches[0].clientX;
+        lastX = e.touches[0].clientX;
+        var delta = dragStartX - e.touches[0].clientX;
+        offset = dragStartOffset + delta;
+        offset = ((offset % trackWidth) + trackWidth) % trackWidth;
+      }, { passive: true });
+
+      track.addEventListener('touchend', function() {
+        isDragging = false;
+        speed = Math.max(0.3, Math.min(Math.abs(velocity) * 0.5, 4)) * (velocity >= 0 ? 1 : -1);
+        var settleInterval = setInterval(function() {
+          if (Math.abs(speed) <= 0.6) {
+            speed = 0.6;
+            clearInterval(settleInterval);
+          } else {
+            speed += (0.6 - speed) * 0.05;
+          }
+        }, 16);
+      });
+    });
+  })();
+</script>
 
 {% schema %}
 {
